@@ -42,9 +42,11 @@ app.use((req, res, next) => {
 })
 
 
+
 app.get('/', (req, res) => {
   res.render('index');
 });
+
 
 app.get('/profile', isLoggedIn, (req, res) => {
   res.render('profile');
