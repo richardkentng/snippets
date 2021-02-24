@@ -7,14 +7,23 @@ const isLoggedIn = require('../middleware/isLoggedIn');
 const router = express.Router();
 
 router.post('/', (req,res) => {
+
     db.snippet.findOrCreate({
         where: {
             tag : req.body.newTag,
             value: req.body.newValue
         }
     }).then(([createdSnippet, created]) => {
-        db.user.findOne ().then((foundUser) => {
+        db.user.findOne ({
+            where: {
+                id : req.session.passport.user
+
+            }
+        }).then((foundUser) => {
             foundUser.addSnippet(createdSnippet)
+
+
+            console.log(foundUser)
             res.redirect('/snippets')
         })
     })
@@ -25,9 +34,9 @@ router.get('/', (req,res)=>{
 })
 
 router.get('/new',isLoggedIn,(req,res)=>{
-    console.log("----isloggedIN------", isLoggedIn)
+   
     res.render('snippets/new.ejs')
-    console.log("----isloggedOut------", isLoggedIn)
+   
     
 })
 
