@@ -18,32 +18,26 @@ router.get('/new',isLoggedIn,(req,res)=>{
 })
 
 //process submitted new form
-router.post('/', (req,res) => {
-    console.log('-----------req.user----------');
-    console.log(req.user);
-    console.log('---------------------');
-    console.log('-----------req.session----------');
-    console.log(req.session);
-    console.log('---------------------');
-    //create snippet with submitted new form data
-    db.snippet.create({
+router.post('/', (req, res) => {
+
+    db.snippet.findOrCreate({
         where: {
-            tag : req.body.newTag,
+            tag: req.body.newTag,
             value: req.body.newValue
         }
-    }).then((createdSnippet) => {
-        console.log('-------------createdSnippet---------');
-        console.log(createdSnippet);
-        console.log('---------------------');
+    }).then(([createdSnippet, created]) => {
+        db.user.findOne({
+            where: {
+                id: req.session.passport.user
+            }
+        }).then((foundUser) => {
+            foundUser.addSnippet(createdSnippet)
 
-        // db.user.findOne().then((foundUser) => {
-        //     foundUser.addSnippet(createdSnippet)
-        //     res.redirect('/snippets')
-        // })
+
+            console.log(foundUser)
             res.redirect('/snippets')
-
+        })
     })
 })
-
 
 module.exports = router;
