@@ -1,3 +1,5 @@
+//a change made by richard that i will save but not commit
+
 require('dotenv').config();
 const express = require('express');
 const layouts = require('express-ejs-layouts');
@@ -43,7 +45,7 @@ app.use((req, res, next) => {
 
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('snippets/index.ejs');
 });
 
 app.get('/profile', isLoggedIn, (req, res) => {
