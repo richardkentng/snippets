@@ -8,6 +8,28 @@ h1 {
   color: chartreuse;
 }
 
-body {
-  background-color: red;
+/* views/snippets/INDEX.EJS (heading row) */
+.cont-headingRow {
+  display: flex;
+  align-items: center;
+
+}
+.cont-headingRow > *:not(:first-child) {
+  margin-left: 1rem;
+}
+
+/* views/snippets/INDEX.EJS (css grid) */
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 10px;
+  background-color: darkgray;
+  padding: 0.7rem;
+  border-radius: 1rem;;
+  max-width: 500px;
+}
+.snippet {
+  background-color: rgb(237, 237, 237);
+  padding: 1rem;
+  border-radius: 1rem;
 }
