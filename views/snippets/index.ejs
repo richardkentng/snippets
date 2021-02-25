@@ -17,7 +17,10 @@
     </div>
 
     <!--SEACH BAR-->
-    <p><input autofocus class="search" type="search" placeholder="search through tags"></p>
+    <p>
+        <input autofocus class="search" type="search" placeholder="search through tags">
+        <input class="search" type="submit" value="search">
+    </p>
 
     <!--CSS GRID  (will contain searchable snippets)-->
     <div class="wrapper">
@@ -38,6 +41,16 @@
                     <p class="trans">tag:</p>&nbsp;
                     <p class="tag"><%= snippet.tag %></p>
                 </div>
+                <p>
+                    <!-- edit button -->
+                    <a href="snippets/edit/<%= snippet.id %>"><input class="btn btn-primary" type="button" value="edit"></a>
+                    
+                    <form action="/snippets/delete/<%= snippet.id %>?_method=DELETE" method="post">
+                        <!-- delete button -->
+                        <button type="submit" class="btn btn-danger">delete</button>
+                    </form>
+
+                </p>
             </div>
         <% }) %>
     </div>
@@ -48,7 +61,7 @@
     //grab search element (input)
     const search = document.querySelector('.search')
     search.addEventListener('keydown', (e) => {
-        if(e.key === "Enter") {
+        if(e.key === "Enter" || e.target) {
             console.log('-------------------------PRESSED ENTER-------------------');
             //get input string
             const searchInputString = e.target.value

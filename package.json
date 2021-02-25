@@ -20,10 +20,25 @@
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.17.1",
+    "method-override": "^3.0.0",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "pg": "^8.4.1",
     "sequelize": "^6.3.5"
-  }
+  },
+  "description": "Express authentication template using Passport + flash messages + custom middleware",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/richardkentng/snippets.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/richardkentng/snippets/issues"
+  },
+  "homepage": "https://github.com/richardkentng/snippets#readme"
 }

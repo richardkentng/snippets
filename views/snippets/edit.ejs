@@ -1,0 +1,28 @@
+<h2>Edit a Snippet!</h2>
+
+
+<div class="text-center">
+  <form method="POST" action="/snippets/?_method=PUT">
+    <p>edit this value:</p>  
+    <p>
+      <textarea id="editedValue" name="editedValue" style="color: red; overflow: hidden; width: 400px; height: 100px; padding:10px;" value="<%= snippet.value %>"></textarea>
+    </p>
+    <p> edit this tag:</p>
+    <p>
+      <textarea id="editedTag" style="color: red; overflow: hidden; width: 400px; height: 100px; padding:10px;" value="<%= snippet.tag %>"></textarea>
+    </p>
+    <p><input type="submit" value="edit it!"></p>
+    <input type="hidden" name="snippetId" value="<%= snippet.id %>">
+  </form>
+</div>
+
+
+
+
+<script>
+  let textAreaValue = document.querySelector("#editedValue")
+  let textAreaTag = document.querySelector("#editedTag")
+  console.log(textAreaValue)
+  textAreaValue.innerHTML = "<%= snippet.value %>"
+  textAreaTag.innerHTML = "<%= snippet.tag %>"
+</script>
