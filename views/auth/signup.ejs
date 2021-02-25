@@ -1,12 +1,31 @@
-<form action="/auth/signup" method="POST">
-  <label for="new-email">Email</label>
-  <input id="new-email" type="email" name="email" required>
+<div class="container">
+  
+  <div class="borderr">
+    <form action="/auth/signup" method="POST">
+      <div class="cont-register">
+  
+        <div><h1>Sign up!</h1></div>
 
-  <label for="new-name">Name</label>
-  <input id="new-name" type="text" name="name">
+ 
+          <div>
+            <label for="new-email">Email</label>
+            <input autofocus id="new-email" type="email" name="email" required>
+          </div>
+        
+          <div>
+            <label for="new-name">Name</label>
+            <input id="new-name" type="text" name="name">
+          </div>
+        
+          <div>
+            <label for="new-password">Password</label>
+            <input id="new-password" type="password" name="password" min="8">
+          </div>
+    
+          <div><input type="submit" value="Sign up"></div>
+        
+      </div>
+    </form>
+  </div>
 
-  <label for="new-password">Password</label>
-  <input id="new-password" type="password" name="password" min="8">
-
-  <input type="submit" value="Sign up">
-</form>
+</div>
