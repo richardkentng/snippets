@@ -9,7 +9,22 @@ const router = express.Router();
 
 //render main search page
 router.get('/', (req, res) => {
-    res.render('snippets/index.ejs')
+    
+    db.user.findOne({
+        where: {
+            id: req.session.passport.user
+        }
+    }).then(currentUser => {
+
+        currentUser.getSnippets().then(currentUserSnippets => {
+
+            res.render('snippets/index.ejs', {
+                user: currentUser,
+                snippets: currentUserSnippets
+            })
+        })
+
+    })
 })
 
 //render new.ejs

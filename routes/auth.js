@@ -39,7 +39,7 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
+  successRedirect: '/snippets',
   failureRedirect: '/auth/login',
   successFlash: 'You have logged in!',
   failureFlash: 'Invalid username and/or password.'
@@ -49,7 +49,7 @@ router.get('/logout', (req, res) => {
   // .logout() is added to the req object by passport
   req.logout()
   req.flash('success', 'You have logged out!')
-  res.redirect('/')
+  res.redirect('/auth/login')
 })
 
 module.exports = router;

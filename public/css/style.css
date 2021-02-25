@@ -1,11 +1,28 @@
+* {
+  font-family: sans-serif;
+}
+
 nav ul li {
   text-decoration: none;
   display: inline-block;
   margin-right: .3em;
 }
 
-h1 {
-  color: chartreuse;
+.borderr {
+  border: 1px solid black;
+  border-radius: 2rem;
+  padding: 3rem;
+}
+
+
+.cont-register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cont-register > div {
+  margin-bottom: 0.7rem;
 }
 
 /* views/snippets/INDEX.EJS (heading row) */
@@ -21,7 +38,7 @@ h1 {
 /* views/snippets/INDEX.EJS (css grid) */
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: 1fr;
   grid-gap: 10px;
   background-color: darkgray;
   padding: 0.7rem;
@@ -29,7 +46,20 @@ h1 {
   max-width: 500px;
 }
 .snippet {
-  background-color: rgb(237, 237, 237);
+  background-color: rgb(247, 247, 247);
   padding: 1rem;
   border-radius: 1rem;
+}
+
+.trans {
+  opacity: 0.5;
+}
+
+.green {
+  color: green;
+  font-weight: 900;
+  background-color: rgb(179, 255, 172);
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
 }

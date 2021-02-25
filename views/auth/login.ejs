@@ -1,14 +1,24 @@
-<h1>Log In Form</h1>
+<div class="container">
+  
+  <form action="/auth/login" method="POST">
+    
+    <div class="cont-register">
+      <div><h1>Log In!</h1></div>
+      <!--Enter login email-->
+      <div>
+        <label for="auth-email">Email</label>
+        <input autofocus id="auth-email" type="email" name="email">
+      </div>
+    
+      <!--Enter login password-->
+      <div>
+        <label for="auth-password">Password</label>
+        <input id="auth-password" type="password" name="password">
+      </div>
+    
+      <div><input type="submit" value="Log In"></div>
+    </div>
+  
+  </form>
 
-<form action="/auth/login" method="POST">
-
-  <!--Enter login email-->
-  <label for="auth-email">Email</label>
-  <input autofocus id="auth-email" type="email" name="email">
-
-  <!--Enter login password-->
-  <label for="auth-password">Password</label>
-  <input id="auth-password" type="password" name="password">
-
-  <input type="submit" value="Log In">
-</form>
+</div>  

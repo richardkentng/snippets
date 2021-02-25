@@ -1,7 +1,8 @@
 <!--main search page!-->
 
 <div class="container">
-    <!--heading row-->
+
+    <!--HEADING ROW-->
     <div class="cont-headingRow">
         <!--heading-->
         <h2>SNIPPETS</h2>
@@ -12,13 +13,129 @@
         </form>
         
         <!--email-->
-        <p>test@test.com</p>
+        <p><%= user.email %></p>
     </div>
 
-    <!--css grid:  will contain searchable snippets-->
-    <div class="wrapper">
-        <div class="snippet">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae deleniti eius vitae eum eligendi nesciunt tempora nostrum assumenda quam veniam tempore culpa impedit, eaque cupiditate quis delectus labore hic atque?</div>
+    <!--SEACH BAR-->
+    <p><input autofocus class="search" type="search" placeholder="search through tags"></p>
 
-        <div class="snippet" style="order: -1">Ipsum quo in minus, laboriosam quis, tempora commodi ea animi ratione sint laborum cumque aliquam, tempore libero corporis doloremque rem quia magnam officia quaerat ducimus accusantium totam. Quibusdam, dolor voluptatem!Ipsum quo in minus, laboriosam quis, tempora commodi ea animi ratione sint laborum cumque aliquam, tempore libero corporis doloremque rem quia magnam officia quaerat ducimus accusantium totam. Quibusdam, dolor voluptatem! Ipsum quo in minus, laboriosam quis, tempora commodi ea animi ratione sint laborum cumque aliquam, tempore libero corporis doloremque rem quia magnam officia quaerat ducimus accusantium totam. Quibusdam, dolor voluptatem!Ipsum quo in minus, laboriosam quis, tempora commodi ea animi ratione sint laborum cumque aliquam, tempore libero corporis doloremque rem quia magnam officia quaerat ducimus accusantium totam. Quibusdam, dolor voluptatem!</div>
+    <!--CSS GRID  (will contain searchable snippets)-->
+    <div class="wrapper">
+        <!--loop through every snippet from database-->
+        <% snippets.forEach((snippet, i) => { %>
+            <!--snippet container  (css grid child)-->
+            <div class="snippet snippet<%= i %>">
+                
+
+                <!--show 'value:' and snippet's value value-->
+                <div style="display: flex">
+                    <p class="trans">value:</p>&nbsp;
+                    <p class="value"><%= snippet.value %> </p>
+                </div>
+                <!--show 'tag:' and snippet's tag value-->
+                <div style="display: flex">
+                    <p class="score"></p>&nbsp;&nbsp;
+                    <p class="trans">tag:</p>&nbsp;
+                    <p class="tag"><%= snippet.tag %></p>
+                </div>
+            </div>
+        <% }) %>
     </div>
 </div>
+
+
+<script>
+    //grab search element (input)
+    const search = document.querySelector('.search')
+    search.addEventListener('keydown', (e) => {
+        if(e.key === "Enter") {
+            console.log('-------------------------PRESSED ENTER-------------------');
+            //get input string
+            const searchInputString = e.target.value
+            //convert input string into array of tags
+            const searchTags = searchInputString.split(' ')
+            
+            //get access to all snippet elements
+            const snippets = document.querySelectorAll('.snippet')
+
+            let inc = 0;
+            //LOOP through every snippet from snippets model
+            for (let snippet of snippets) {
+                console.log('--------current snippet-------');
+                //reset opacity to full
+                snippet.style.opacity = '1'
+                snippet.style.backgroundColor = 'rgb(247, 247, 247)'
+
+                console.log(snippet);
+                //grab tag element of current snippet
+                const tagEl = document.querySelector(`.snippet${inc} .tag`)
+                    //console.log('tag element of current snippet:  ', tagEl);
+
+                //grab value element of current snippet
+                const valueEl = document.querySelector(`.snippet${inc} .value`)
+                    //console.log('value element of current snippet:  ', valueEl);
+
+                //grab score element of current snippet
+                const scoreEl = document.querySelector(`.snippet${inc} .score`)
+
+                let score = 0;
+                 //get an array of tags from current snippet
+                const snippetTags = tagEl.textContent.split(' ')
+
+                //loop through tags (string) of current snippet
+                snippetTags.forEach((snippetTag, i) => {
+                    //if current tag can be found in searchInputString, increment score
+                    if (searchInputString.toLowerCase().indexOf(snippetTag.toLowerCase()) >= 0) {
+                        score++
+                        console.log('matching tag>', snippetTag, score,'<new score');
+                        snippetTags[i] = `<span class="green">${snippetTags[i]}</span>`
+                    }
+                })
+                
+                tagEl.innerHTML = snippetTags.join(' ')
+                //apply score to order property of current snippet
+                snippet.style.order = score * -1;
+                //show number of tag matches next to each snippet tag
+                scoreEl.textContent = score;
+
+                //if score = 0, lower opacity of snippet
+                if (score === 0) {
+                    snippet.style.opacity = '0.5'
+                }
+
+                //increment   
+                inc++
+            } //end of: looping through snippets
+
+            //loop through snippets (check order property)
+            let lowestNumber = null;
+
+            const allOrderValues = []
+            for (let snippet of snippets) {
+                allOrderValues.push(snippet.style.order)
+            }
+            //sort array:  lowest number first
+            allOrderValues.sort((a,b) => a - b)
+            
+            
+            if (allOrderValues[0] !== allOrderValues[1]) {
+                for (let snippet of snippets) {
+                    if (snippet.style.order === allOrderValues[0]) {
+                        snippet.style.backgroundColor = 'yellowgreen'
+                    }
+                }
+            } else if ((allOrderValues[0] === allOrderValues[1]) && (allOrderValues[0] !== '0')) {
+                for (let snippet of snippets) {
+                    if (snippet.style.order === allOrderValues[0]) {
+                        snippet.style.backgroundColor = 'gold'
+                    }
+                }
+            }
+
+
+
+        } //end of: if pressed enter
+    }) //end of: addEventListener for 'keydown' event
+    
+
+</script>

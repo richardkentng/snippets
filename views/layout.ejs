@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Authentication</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
@@ -16,16 +17,13 @@
             <li><a href="/auth/login">Login</a></li>
           <% } else { %>
             <!--user is logged in-->
+            <li><a href="/snippets">Search</a></li>
             <li><a href="/auth/logout">Logout</a></li>
-            <li><a href="/profile">Profile</a></li>
-            <li><a href="/snippets/new">+create</a></li>
-          <% } %>
+            <% } %>
         </ul>
       </nav>
     </header>
     <%- include("partials/alerts") %>
-
-    <h1>Authentication</h1>
     <%- body %>
   </body>
 </html>
