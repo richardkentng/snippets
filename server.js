@@ -7,6 +7,8 @@ const session = require('express-session');
 const flash = require("connect-flash")
 const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn')
+const methodOverride = require('method-override');
+
 
 const app = express();
 
@@ -28,6 +30,9 @@ app.use(session({
 // the following two lines must appear after configuring the session
 app.use(passport.initialize())
 app.use(passport.session())
+
+
+app.use(methodOverride("_method"))
 
 // FLASH
 app.use(flash())
