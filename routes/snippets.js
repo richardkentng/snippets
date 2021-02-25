@@ -6,18 +6,44 @@ const isLoggedIn = require('../middleware/isLoggedIn');
 
 const router = express.Router();
 
-router.post('/', (req,res) => {
+
+//render main search page
+router.get('/', (req, res) => {
+    
+    db.user.findOne({
+        where: {
+            id: req.session.passport.user
+        }
+    }).then(currentUser => {
+
+        currentUser.getSnippets().then(currentUserSnippets => {
+
+            res.render('snippets/index.ejs', {
+                user: currentUser,
+                snippets: currentUserSnippets
+            })
+        })
+
+    })
+})
+
+//render new.ejs
+router.get('/new',isLoggedIn,(req,res)=>{
+    res.render('snippets/new.ejs')
+})
+
+//process submitted new form
+router.post('/', (req, res) => {
 
     db.snippet.findOrCreate({
         where: {
-            tag : req.body.newTag,
+            tag: req.body.newTag,
             value: req.body.newValue
         }
     }).then(([createdSnippet, created]) => {
-        db.user.findOne ({
+        db.user.findOne({
             where: {
-                id : req.session.passport.user
-
+                id: req.session.passport.user
             }
         }).then((foundUser) => {
             foundUser.addSnippet(createdSnippet)
@@ -27,17 +53,6 @@ router.post('/', (req,res) => {
             res.redirect('/snippets')
         })
     })
-})
-
-router.get('/', (req,res)=>{
-    res.render('index.ejs')
-})
-
-router.get('/new',isLoggedIn,(req,res)=>{
-   
-    res.render('snippets/new.ejs')
-   
-    
 })
 
 module.exports = router;

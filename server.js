@@ -1,3 +1,5 @@
+//a change made by richard that i will save but not commit
+
 require('dotenv').config();
 const express = require('express');
 const layouts = require('express-ejs-layouts');
@@ -41,12 +43,15 @@ app.use((req, res, next) => {
   next()
 })
 
+app.use('/auth', require('./routes/auth'));
+
+app.use('/snippets', require('./routes/snippets'));
 
 
+//should render register.ejs..
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('register.ejs');
 });
-
 
 app.get('/profile', isLoggedIn, (req, res) => {
   res.render('profile');
@@ -54,9 +59,7 @@ app.get('/profile', isLoggedIn, (req, res) => {
 
 
 
-app.use('/auth', require('./routes/auth'));
 
-app.use('/snippets', require('./routes/snippets'));
 
 var server = app.listen(process.env.PORT || 3000, ()=> console.log(`🎧You're listening to the smooth sounds of port ${process.env.PORT || 3000}🎧`));
 
