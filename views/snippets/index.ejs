@@ -41,7 +41,16 @@
                     <p class="trans">tag:</p>&nbsp;
                     <p class="tag"><%= snippet.tag %></p>
                 </div>
-                <p><a href="snippets/edit/<%= snippet.id %>"><input type="button" value="edit"></a></p>
+                <p>
+                    <!-- edit button -->
+                    <a href="snippets/edit/<%= snippet.id %>"><input class="btn btn-primary" type="button" value="edit"></a>
+                    
+                    <form action="/snippets/delete/<%= snippet.id %>?_method=DELETE" method="post">
+                        <!-- delete button -->
+                        <button type="submit" class="btn btn-danger">delete</button>
+                    </form>
+
+                </p>
             </div>
         <% }) %>
     </div>

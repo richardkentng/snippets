@@ -77,4 +77,14 @@ router.put("/", isLoggedIn, (req, res) => {
     })
 })
 
+router.delete("/delete/:id" , (req, res) => {
+    
+    db.snippet.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    res.redirect("/snippets")
+})
+
 module.exports = router;
