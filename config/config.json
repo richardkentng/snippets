@@ -1,7 +1,5 @@
 {
   "development": {
-    "username": "c",
-    "password": "getsoe",
     "database": "snippet",
     "host": "127.0.0.1",
     "dialect": "postgres"
