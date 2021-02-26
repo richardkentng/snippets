@@ -2,9 +2,8 @@ function removeExtraSpaces(str) {
     //if string has 2 spaces, replace them with one space, until no more 2 spaces are found
     let i = 0;
     while (str.indexOf('  ') !== -1) {
-        console.log('i: ',i + 1);
         str = str.replace('  ',' ')
-    i++
+        i++
     }
     //if first character of string is a space, remove it
     if (str[0] === ' ') {
