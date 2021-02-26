@@ -35,22 +35,19 @@
                     <p class="trans">value:</p>&nbsp;
                     <p class="value"><%= snippet.value %> </p>
                 </div>
-                <!--show 'tag:' and snippet's tag value-->
                 <div style="display: flex">
+                    <!--show 'tag:' and snippet's tag value-->
                     <p class="score"></p>&nbsp;&nbsp;
                     <p class="trans">tag:</p>&nbsp;
                     <p class="tag"><%= snippet.tag %></p>
-                </div>
-                <p>
                     <!-- edit button -->
-                    <a href="snippets/edit/<%= snippet.id %>"><input class="btn btn-primary" type="button" value="edit"></a>
-                    
-                    <form action="/snippets/delete/<%= snippet.id %>?_method=DELETE" method="post">
-                        <!-- delete button -->
-                        <button type="submit" class="btn btn-danger">delete</button>
-                    </form>
+                    <a href="snippets/edit/<%= snippet.id %>"><input type="button" value="edit" style="margin-left: 1rem;"></a>
 
-                </p>
+                    <!-- delete button -->
+                    <form action="/snippets/delete/<%= snippet.id %>?_method=DELETE" method="post">
+                        <button type="submit" style="margin-left: 1rem;">delete</button>
+                    </form>
+                </div>
             </div>
         <% }) %>
     </div>
@@ -58,10 +55,11 @@
 
 
 <script>
+    console.log('---------i am script tag in index.ejs search page-=------');
     //grab search element (input)
     const search = document.querySelector('.search')
     search.addEventListener('keydown', (e) => {
-        if(e.key === "Enter" || e.target) {
+        if(e.key === "Enter") {
             console.log('-------------------------PRESSED ENTER-------------------');
             //get input string
             const searchInputString = e.target.value
@@ -116,13 +114,10 @@
                     snippet.style.opacity = '0.5'
                 }
 
-                //increment   
                 inc++
             } //end of: looping through snippets
 
-            //loop through snippets (check order property)
-            let lowestNumber = null;
-
+            //loop through snippets (push order value to array)
             const allOrderValues = []
             for (let snippet of snippets) {
                 allOrderValues.push(snippet.style.order)
@@ -134,13 +129,13 @@
             if (allOrderValues[0] !== allOrderValues[1]) {
                 for (let snippet of snippets) {
                     if (snippet.style.order === allOrderValues[0]) {
-                        snippet.style.backgroundColor = 'yellowgreen'
+                        snippet.style.backgroundColor = '#d9ffb3'
                     }
                 }
             } else if ((allOrderValues[0] === allOrderValues[1]) && (allOrderValues[0] !== '0')) {
                 for (let snippet of snippets) {
                     if (snippet.style.order === allOrderValues[0]) {
-                        snippet.style.backgroundColor = 'gold'
+                        snippet.style.backgroundColor = '#ffffb3'
                     }
                 }
             }
