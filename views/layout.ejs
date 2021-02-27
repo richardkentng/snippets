@@ -6,24 +6,50 @@
     <title>Authentication</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <header>
-      <nav>
+      <nav class="navbar navbar-light bg-dark">
         <ul>
           <% if (!currentUser) { %>
             <!--no user-->
-            <li><a href="/auth/signup">Signup</a></li>
-            <li><a href="/auth/login">Login</a></li>
-          <% } else { %>
+            <li>
+              <a href="/auth/signup">Signup</a>
+              <i class="fa fa-user" aria-hidden="true"></i>   
+            </li>
+              
+            <li>
+              <a href="/auth/login">Login</a>
+              <i class="fa fa-sign-in" aria-hidden="true"></i>
+            </li>
+          
+          <% } else if(currentUser) { %>
             <!--user is logged in-->
-            <li><a href="/snippets">Search</a></li>
-            <li><a href="/auth/logout">Logout</a></li>
-            <% } %>
+           
+            <li>
+              <a href="/snippets">Snippet</a>
+              <i class="fa fa-university" aria-hidden="true"></i>
+
+            </li>
+            <li>
+              <a href="/auth/logout">Logout</a>
+              <i class="fa fa-sign-out" aria-hidden="true"></i>
+              <div class="float-right"> 
+                <%=currentUser.email%>
+              </div> 
+            </li>
+          
+           
+          <% } %>
+          
+          
         </ul>
+        
       </nav>
+      
     </header>
-    <%- include("partials/alerts") %>
+    <%- include ("partials/alerts") %>
     <%- body %>
   </body>
 </html>

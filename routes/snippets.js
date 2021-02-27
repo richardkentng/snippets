@@ -8,7 +8,7 @@ const router = express.Router();
 
 
 //render main search page
-router.get('/', (req, res) => {
+router.get('/',isLoggedIn, (req, res) => {
     
     db.user.findOne({
         where: {
@@ -33,7 +33,7 @@ router.get('/new',isLoggedIn,(req,res)=>{
 })
 
 //process submitted new form
-router.post('/', (req, res) => {
+router.post('/',isLoggedIn, (req, res) => {
 
     db.snippet.findOrCreate({
         where: {

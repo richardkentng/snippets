@@ -55,7 +55,7 @@ app.use('/snippets', require('./routes/snippets'));
 
 //should render register.ejs..
 app.get('/', (req, res) => {
-  res.render('register.ejs');
+  res.render('index.ejs');
 });
 
 app.get('/profile', isLoggedIn, (req, res) => {
@@ -66,6 +66,6 @@ app.get('/profile', isLoggedIn, (req, res) => {
 
 
 
-var server = app.listen(process.env.PORT || 3000, ()=> console.log(`🎧You're listening to the smooth sounds of port ${process.env.PORT || 3000}🎧`));
+var server = app.listen(process.env.PORT || 4000, ()=> console.log(`🎧You're listening to the smooth sounds of port ${process.env.PORT || 4000}🎧`));
 
 module.exports = server;
