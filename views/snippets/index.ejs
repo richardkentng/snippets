@@ -1,92 +1,318 @@
-<!--main search page!-->
-
+<!--main search page-->
 <div class="container">
 
-    <!--HEADING ROW-->
+
     <div class="cont-headingRow">
-        <!--heading-->
         <h2>SNIPPETS</h2>
-        
         <!--create button-->
         <form method="GET" action="/snippets/new">
             <button class="btn btn-success">+ create</button>
         </form>
-        
-        <!--email-->
+        <!--display current user email-->
         <p><%= user.email %></p>
     </div>
+    
 
-    <!--SEACH BAR-->
+
+    <!--SEARCH BAR & search button-->
     <p>
-        <input autofocus class="search" type="search" placeholder="search through tags">
-        <input class="search" type="submit" value="search">
+        <input autofocus class="search" type="search" placeholder="search through tags" style="width: 300px;"">
+        <input class="searchBtn" type="submit" value="search">
     </p>
 
-    <!--CSS GRID  (will contain searchable snippets)-->
+
+    <!--elements after search bar but before snippets-->
+    <div class="cont-underSearchBar">
+
+        <!--hint, '[TAB]', and 'no tags start with..'-->
+        <div style="display: flex;">
+            <div class="cont-hint" style="opacity: 0;">
+                <!--hint and '[TAB]'-->
+                <span class="hint" style="font-weight: 900;">hint</span>&nbsp
+                <span style="font-weight: 250; font-size: 13px;">[TAB]</span>
+            </div>
+            <!--'no tags start with..'-->
+            <div class="notFound"></div>
+        </div>
+
+        <!--show tags that start with partial (the line of text with the individual orange characters)-->
+        <div class="tagLine trans" style="margin-bottom: 10px;"></div>
+
+    </div>
+
+
+
+    <!--grid container (contains the snippets)-->
     <div class="wrapper">
         <!--loop through every snippet from database-->
         <% snippets.forEach((snippet, i) => { %>
-            <!--snippet container  (css grid child)-->
-            <div class="snippet snippet<%= i %>">
-                
+                <!--individual snippet container-->
+                <div class="snippet snippet<%= i %>">
+                    <!--snippet's value-->
+                    <div style="display: flex;">
+                        <p class="trans">value:</p>&nbsp;
+                        <p class="value"><%= snippet.value %> </p>
+                    </div>
 
-                <!--show 'value:' and snippet's value value-->
-                <div style="display: flex">
-                    <p class="trans">value:</p>&nbsp;
-                    <p class="value"><%= snippet.value %> </p>
-                </div>
-                <div style="display: flex">
-                    <!--show 'tag:' and snippet's tag value-->
-                    <p class="score"></p>&nbsp;&nbsp;
-                    <p class="trans">tag:</p>&nbsp;
-                    <p class="tag"><%= snippet.tag %></p>
-                    <!-- edit button -->
-                    <a href="snippets/edit/<%= snippet.id %>"><input type="button" value="edit" style="margin-left: 1rem;"></a>
+                    <div style="display: flex">
 
-                    <!-- delete button -->
-                    <form action="/snippets/delete/<%= snippet.id %>?_method=DELETE" method="post">
-                        <button type="submit" style="margin-left: 1rem;">delete</button>
-                    </form>
+                        <!--snippet's tag-->
+                        <p class="score"></p>&nbsp;&nbsp;
+                        <p class="trans">tag:</p>&nbsp;
+                        <p class="tag"><%= snippet.tag %></p>
+
+                        <!-- edit button -->
+                        <form method="GET" action="/snippets/edit/<%= snippet.id %>">
+                            <button type="submit" style="margin-left: 1rem;">edit</button>
+                        </form>
+
+                        <!-- delete button -->
+                        <form  method="POST" action="/snippets/delete/<%= snippet.id %>?_method=DELETE">
+                            <button type="submit" style="margin-left: 1rem;">delete</button>
+                        </form>
+
+                    </div>
                 </div>
-            </div>
         <% }) %>
     </div>
-</div>
+
+    <!--'press tab to search'-->
+    <p class="trans tabToSearch">press <span style="font-weight: 600;">tab</span> to search</p>
+
+    <!--spacer-->
+    <div style="height: 40px"></div>
+    
+    <!-- hidden refresh button-->
+    <form method="GET" action="/snippets">
+        <button class="refresh" type="submit" style="display: none;"></button>
+    </form>
+
+</div> <!--end of: bootstrap container-->
+
+
+
+
+
 
 
 <script>
-    console.log('---------i am script tag in index.ejs search page-=------');
-    //grab search element (input)
-    const search = document.querySelector('.search')
-    search.addEventListener('keydown', (e) => {
-        if(e.key === "Enter") {
-            console.log('-------------------------PRESSED ENTER-------------------');
-            //get input string
-            const searchInputString = e.target.value
-            //convert input string into array of tags
+    //grab elements
+    const snippets = document.querySelectorAll('.snippet')
+
+    const searchEl = document.querySelector('.search')
+    const searchBtn = document.querySelector('.searchBtn')
+
+    const contUnderSearchBar = document.querySelector('.cont-underSearchBar')
+
+    //******** grab elements relating to the keypress event listener
+    //grab container for '_someTag_ [TAB]'
+    const contHintEl = document.querySelector('.cont-hint')
+    //grab hint element
+    const hintEl = document.querySelector('.hint')
+    //grab notFound element 'no tags start with _someTag_'
+    const notFoundEl = document.querySelector('.notFound')
+    //grab tag queue element (tags with orange characters)
+    const tagLineEl = document.querySelector('.tagLine')
+
+
+   //******** set globals:
+   //the string value of a tag (will be fed into hintEl)
+    let hint = '';
+    //the partial tag during mid-search
+    let partial = ''
+    //to be used for tab-autocomplete:
+    let inputStr = ''
+    let indexReplaceStart = null;
+    // will contain every tag whose start matches the partial
+    let otherTagsThatHavePartial = []
+
+
+    //****** create array of tags from all snippets on the page
+    let allTags = getTagsFromAllDisplayedSnippets()
+
+
+
+
+
+    searchBtn.addEventListener('click', () => {
+        submitSearch()
+    })
+
+    //for every key pressed in search bar, calculate possible tags, display the results of the findings
+    searchEl.addEventListener('keydown', (e) => {
+
+        //show hint-related elements beneath search bar
+        contUnderSearchBar.style.display = 'block'
+        //show invisible placeholder text (prevents elements from moving while typing)
+        tagLineEl.innerHTML = `<span style="opacity: 0;">|</span>`
+
+
+        // if a non-space character was pressed:
+        if (e.key !== ' ') {
+
+            setTimeout(() => {
+                inputStr = searchEl.value
+
+                //if search bar is empty
+                if (removeExtraSpaces(inputStr) === '') {
+                    //refresh page (will show all elements)
+                    document.querySelector('.refresh').click()
+                } else if (inputStr[inputStr.length - 1] === ' ') {
+                    //if right-most character is a space:
+                    invisify_contHintEl_notFoundEl()
+                } else { //if a character was actually pressed:
+                    
+
+                    //get the 'partial'-- the current word being typed in the search bar
+                    partial = ''
+                    let dec = inputStr.length - 1
+                    while (inputStr[dec] !== ' ' && inputStr[dec] !== undefined) {
+                        partial = inputStr[dec] + partial.toLowerCase()
+                        dec--
+                    }
+                    indexReplaceStart = dec + 1;
+
+
+
+                    hint = ''
+                    otherTagsThatHavePartial = []
+                    let foundOne = false
+
+                    //loop through every tag string displayed on the page
+                    //set 'hint' to the first tag that starts with the partial
+                    //fill 'otherTagsThatHavePartial' with the other tags that also start with the partial
+                    for (let i = 0; i < allTags.length; i++) {
+                        if (allTags[i].indexOf(partial) === 0) {
+                            if (foundOne === false) {
+                                hint = allTags[i]
+                            }
+                            foundOne = true
+                            otherTagsThatHavePartial.push(allTags[i])
+                        }
+                    }
+                    otherTagsThatHavePartial.shift()
+
+
+                    //under the search bar, display a list of tags that include the partial (highlight the next letter orange)
+                    otherTagsThatHavePartial.forEach((tag, i) => {
+                        const tagChars = tag.split('')
+                        //make the next character orange
+                        tagChars.splice(partial.length,1,`<span class="orange">${tagChars[partial.length]}</span>`)
+                        //display it
+                        tagLineEl.innerHTML += `<span>${tagChars.join('')}&nbsp;&nbsp;</span>`
+                    })
+
+
+                    //PARTIAL MATCHES THE START OF A TAG!
+                    if (hint !== '') {
+                        //invisify irrelevant error message
+                        notFoundEl.style.opacity = '0'
+
+                        //ensure that hint is shown
+                        contHintEl.style.display = 'block'
+                        contHintEl.style.opacity = '1'
+
+                        //display the tag suggestion ('someTag' [Tab])
+                        hintEl.textContent = hint
+
+                        //if the hint is the same as the partial, invisify the tab suggestion
+                        if (partial.length === hint.length) {
+                            contHintEl.style.opacity = '0'
+                        }
+                        
+
+                    } else {  //NO TAG BEGINS WITH PARTIAL
+                        //hide error message (to be displayed after a short delay)
+                        notFoundEl.style.opacity = '0'
+
+                        //hide irrelevant data
+                        contHintEl.style.display = 'none'
+
+                        //populate error message
+                        notFoundEl.innerHTML = `<span style="color: red;">no tags start with '${partial}'</span>`
+                        
+                        //show error message
+                        setTimeout(() => {
+                            notFoundEl.style.opacity = '1'
+                        }, 40)
+                    }
+                }
+            }, 20)
+        } else {
+            //if you pressed space (in the search bar)
+            hint = ''
+            invisify_contHintEl_notFoundEl()
+        }
+        //end of:  if non-space character was pressed, else if space was pressed
+
+
+
+        if(e.key === 'Enter') {
+            submitSearch()
+        } else if (e.key === 'Tab') {   //IF TAB IS PRESSED, PERFORM AUTOCOMPLETE
+            // redirect focus to search bar
+            setTimeout(() => {
+                searchEl.focus()
+            }, 30)
+
+            if (hint !== '') {
+                //array-ify
+                const inputStrArr = inputStr.split('')
+
+                //make the replacement
+                inputStrArr.splice(indexReplaceStart, inputStrArr.length, hint)
+                
+                //string-ify
+                const newInputValue = inputStrArr.join('')
+
+                //update the displayed search value!
+                searchEl.value = newInputValue
+
+                setTimeout(() => {
+                    contHintEl.style.opacity = '0'
+                }, 20)
+            }
+        }
+
+
+    }) //end of: addEventListener for 'keydown' event
+
+
+
+
+
+    // press tab to focus the search bar
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab' && document.activeElement !== searchEl) {
+            setTimeout(() => {
+                searchEl.focus()
+            }, 30)
+        }
+    })
+
+
+
+    //FUNCTIONS:
+
+    function submitSearch() {
+            //collapse all hint-related elements 
+            contUnderSearchBar.style.display = 'none'
+
+            const searchInputString = ' ' + removeExtraSpaces(searchEl.value) + ' '
+            //get array of tags from searchInputString^
             const searchTags = searchInputString.split(' ')
-            
-            //get access to all snippet elements
-            const snippets = document.querySelectorAll('.snippet')
 
             let inc = 0;
-            //LOOP through every snippet from snippets model
+            //loop through every snippet from snippets node-list 
             for (let snippet of snippets) {
-                console.log('--------current snippet-------');
-                //reset opacity to full
+                //reset opacity/color/display of snippet
                 snippet.style.opacity = '1'
                 snippet.style.backgroundColor = 'rgb(247, 247, 247)'
+                snippet.style.display = 'block'
 
-                console.log(snippet);
-                //grab tag element of current snippet
+                //grab specific children elements from current snippet
                 const tagEl = document.querySelector(`.snippet${inc} .tag`)
-                    //console.log('tag element of current snippet:  ', tagEl);
-
-                //grab value element of current snippet
                 const valueEl = document.querySelector(`.snippet${inc} .value`)
-                    //console.log('value element of current snippet:  ', valueEl);
-
-                //grab score element of current snippet
                 const scoreEl = document.querySelector(`.snippet${inc} .score`)
 
                 let score = 0;
@@ -96,28 +322,34 @@
                 //loop through tags (string) of current snippet
                 snippetTags.forEach((snippetTag, i) => {
                     //if current tag can be found in searchInputString, increment score
-                    if (searchInputString.toLowerCase().indexOf(snippetTag.toLowerCase()) >= 0) {
+                    if (searchInputString.toLowerCase().indexOf(` ${snippetTag.toLowerCase()} `) >= 0) {
                         score++
                         console.log('matching tag>', snippetTag, score,'<new score');
                         snippetTags[i] = `<span class="green">${snippetTags[i]}</span>`
                     }
                 })
-                
+                //display (potentially-with-class-of-green) tags of snippet
                 tagEl.innerHTML = snippetTags.join(' ')
+
                 //apply score to order property of current snippet
                 snippet.style.order = score * -1;
-                //show number of tag matches next to each snippet tag
+
+                //display number of tag matches next to each snippet tag
                 scoreEl.textContent = score;
 
-                //if score = 0, lower opacity of snippet
+                //if score = 0, then lower opacity of snippet
                 if (score === 0) {
                     snippet.style.opacity = '0.5'
+                    snippet.style.backgroundColor = '#e7b1b1'
+                    snippet.style.display = 'none'
                 }
 
                 inc++
             } //end of: looping through snippets
 
-            //loop through snippets (push order value to array)
+
+
+            //****** determine whether to highlight top results green or yellow, based on score
             const allOrderValues = []
             for (let snippet of snippets) {
                 allOrderValues.push(snippet.style.order)
@@ -125,13 +357,14 @@
             //sort array:  lowest number first
             allOrderValues.sort((a,b) => a - b)
             
-            
+            //make top snippet GREEN if top two order values are different
             if (allOrderValues[0] !== allOrderValues[1]) {
                 for (let snippet of snippets) {
                     if (snippet.style.order === allOrderValues[0]) {
                         snippet.style.backgroundColor = '#d9ffb3'
                     }
                 }
+            //make at snippets YELLOW if that share the same order(must be non-zero)
             } else if ((allOrderValues[0] === allOrderValues[1]) && (allOrderValues[0] !== '0')) {
                 for (let snippet of snippets) {
                     if (snippet.style.order === allOrderValues[0]) {
@@ -139,11 +372,37 @@
                     }
                 }
             }
+    } //end of: submitSearch function
 
 
+    function invisify_contHintEl_notFoundEl() {
+        contHintEl.style.opacity = '0'
+        notFoundEl.style.opacity = '0'
+    }
 
-        } //end of: if pressed enter
-    }) //end of: addEventListener for 'keydown' event
-    
+
+    function getTagsFromAllDisplayedSnippets() {
+        let allTags = '';
+        //grab all elements with class of tag
+        const allTagEls = document.querySelectorAll('.tag')
+        //add textContent from every tag element to allTags
+        for (let tagEl of allTagEls) {
+            allTags += ` ${tagEl.textContent.toLowerCase()}`
+        }
+        allTags = removeExtraSpaces(allTags)
+        //convert space-separated string of tags into array
+        allTags = allTags.split(' ')
+        //sort array: shortest tags appear first 
+        allTags.sort((a,b) => a.length - b.length)
+        
+        //remove duplicate tags
+        const uniqueAllTags = [];
+        allTags.forEach((tag) => {
+            if (uniqueAllTags.indexOf(tag) === -1) {
+                uniqueAllTags.push(tag)
+            }
+        })
+        return uniqueAllTags.slice()
+    }
 
 </script>
