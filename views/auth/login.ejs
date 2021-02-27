@@ -1,24 +1,31 @@
-<div class="container">
-  
-  <form action="/auth/login" method="POST">
-    
-    <div class="cont-register">
-      <div><h1>Log In!</h1></div>
-      <!--Enter login email-->
-      <div>
-        <label for="auth-email">Email</label>
-        <input autofocus id="auth-email" type="email" name="email">
-      </div>
-    
-      <!--Enter login password-->
-      <div>
-        <label for="auth-password">Password</label>
-        <input id="auth-password" type="password" name="password">
-      </div>
-    
-      <div><input type="submit" value="Log In"></div>
-    </div>
-  
-  </form>
 
-</div>  
+  
+  
+  <div class = 'container fluid contain-loginSignin'>
+  
+    <form action="/auth/login" method="POST">
+      
+      <div class="cont-register">
+        <div class="head-index">
+          <h1>Log In!</h1>
+        </div>
+        <!--Enter login email-->
+      <div class="form-group">
+          <label for="auth-email">Email</label>
+          
+          <input autofocus id="auth-email" class="form-control" type="email" name="email">
+      </div>
+      
+        <!--Enter login password-->
+        <div class="form-group">
+          <label for="auth-password">Password</label>
+          <input id="auth-password" type="password" class="form-control" name="password">
+        </div>
+      
+        <div><input type="submit" class="btn btn-primary submitto" value="Log In"></div>
+      </div>
+    
+    </form>
+   
+  </div>
+
