@@ -56,7 +56,7 @@ router.post('/',isLoggedIn, (req, res) => {
 })
 
 
-router.get("/edit/:id", (req, res) => {
+router.get("/edit/:id", isLoggedIn, (req, res) => {
     db.snippet.findByPk(req.params.id).then(foundSnippet => {
         res.render("snippets/edit" , { snippet: foundSnippet })
     })
