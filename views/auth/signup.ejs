@@ -1,31 +1,31 @@
-<div class="container">
+<div class="container fluid contain-loginSignin">
   
-  <div class="borderr">
+ 
     <form action="/auth/signup" method="POST">
       <div class="cont-register">
   
-        <div><h1>Sign up!</h1></div>
+        <div class="head-index"><h1>Sign up!</h1></div>
 
  
-          <div>
+          <div class="form-group">
             <label for="new-email">Email</label>
-            <input autofocus id="new-email" type="email" name="email" required>
+            <input autofocus id="new-email" type="email" class="form-control" name="email" required>
           </div>
         
-          <div>
+          <div class="form-group">
             <label for="new-name">Name</label>
-            <input id="new-name" type="text" name="name">
+            <input id="new-name" type="text" class="form-control" name="name">
           </div>
         
-          <div>
+          <div class="form-group">
             <label for="new-password">Password</label>
-            <input id="new-password" type="password" name="password" min="8">
+            <input id="new-password" type="password" class="form-control" name="password" min="8">
           </div>
     
-          <div><input type="submit" value="Sign up"></div>
+          <div ><input class = "submitto btn btn-primary " type="submit" value="Sign up"></div>
         
       </div>
     </form>
-  </div>
+ 
 
 </div>

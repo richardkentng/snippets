@@ -1,18 +1,24 @@
-<h2>Edit a Snippet!</h2>
 
-
-<div class="text-center">
+<div class="container landing">
+  <div class="head-index"><h2>Edit a Snippet</h2></div>
   <form method="POST" action="/snippets/?_method=PUT">
-    <p>edit this value:</p>  
-    <p>
-      <textarea id="editedValue" name="editedValue" style="color: red; overflow: hidden; width: 400px; height: 100px; padding:10px;" value="<%= snippet.value %>"></textarea>
-    </p>
-    <p> edit this tag:</p>
-    <p>
-      <textarea id="editedTag" name="editedTag" style="color: red; overflow: hidden; width: 400px; height: 100px; padding:10px;" value="<%= snippet.tag %>"></textarea>
-    </p>
-    <p><input type="submit" value="edit it!"></p>
-    <input type="hidden" name="snippetId" value="<%= snippet.id %>">
+
+    <div class="edit-home">
+      <div class="form-group">
+        <label for="editedValue">Edit Value:</p>  
+        <textarea id="editedValue" name="editedValue" style="color: red;  " rows="3" cols="40" value="<%= snippet.value %>"></textarea>
+        <div class="form-group">
+          <label for="editedTag">Edit Tag:</p>  
+          <textarea id="editedTag" name="editedTag" style="color: red; " rows="3" cols="40" value="<%= snippet.tag %>"></textarea>
+        </div>
+        
+        <input type="submit" class="btn btn-success" value="edit it!">
+      </div>
+    </div>
+    
+
+    <input type="hidden" class="submitto" name="snippetId" value="<%= snippet.id %>">
+
   </form>
 </div>
 

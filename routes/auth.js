@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('../config/ppConfig')
+const passport = require('../config/ppConfig');
+const isLoggedIn = require('../middleware/isLoggedIn');
 const db = require("../models")
 
 router.get('/signup', (req, res) => {
