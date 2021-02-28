@@ -117,7 +117,6 @@
    //******** set globals:
    //the string value of a tag (will be fed into hintEl)
     let hint = '';
-    let lastHint = '';
     //the partial tag during mid-search
     let partial = ''
     //to be used for tab-autocomplete:
@@ -202,7 +201,6 @@
                         if (allTags[i].indexOf(partial) === 0) {
                             if (foundOne === false) {
                                 hint = allTags[i]
-                                lastHint = hint;
                             }
                             foundOne = true
                             otherTagsThatHavePartial.push(allTags[i])
