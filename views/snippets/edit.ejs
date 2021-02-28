@@ -2,6 +2,7 @@
 <div class="container landing">
   <div class="head-index"><h2>Edit a Snippet</h2></div>
   <form method="POST" action="/snippets/?_method=PUT">
+
     <div class="edit-home">
       <div class="form-group">
         <label for="editedValue">Edit Value:</p>  
@@ -16,19 +17,15 @@
     </div>
     
 
-   
-
     <input type="hidden" class="submitto" name="snippetId" value="<%= snippet.id %>">
+
   </form>
 </div>
-
-
-
 
 <script>
   let textAreaValue = document.querySelector("#editedValue")
   let textAreaTag = document.querySelector("#editedTag")
-  console.log(textAreaValue)
+
   textAreaValue.innerHTML = "<%= snippet.value %>"
   textAreaTag.innerHTML = "<%= snippet.tag %>"
 </script>
