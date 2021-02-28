@@ -68,3 +68,25 @@ nav ul li {
   color: rgb(255, 68, 0);
   font-weight: 600;
 }
+
+.onShift {
+  color: purple;
+  font-weight: 900;
+}
+
+.shiftBracket {
+  color: purple;
+  font-weight: 900;
+  font-size: 12px;
+}
+
+.red {
+  color: red;
+}
+
+.redBg {
+  color: red;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+}
