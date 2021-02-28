@@ -1,34 +1,40 @@
-
 <div class="container landing">
-  <div class="head-index"><h2>Edit a Snippet</h2></div>
+  <h2 class="heading">EDIT SNIPPET</h2>
+
+
   <form method="POST" action="/snippets/?_method=PUT">
     <div class="edit-home">
-      <div class="form-group">
-        <label for="editedValue">Edit Value:</p>  
-        <textarea id="editedValue" name="editedValue" style="color: red;  " rows="3" cols="40" value="<%= snippet.value %>"></textarea>
-        <div class="form-group">
-          <label for="editedTag">Edit Tag:</p>  
-          <textarea id="editedTag" name="editedTag" style="color: red; " rows="3" cols="40" value="<%= snippet.tag %>"></textarea>
-        </div>
-        
-        <input type="submit" class="btn btn-success" value="edit it!">
-      </div>
+      <!--'Edit Value:' label & textarea:-->
+      <label for="editedValue">Edit Value:</p>
+        <textarea id="editedValue" name="editedValue" style="color: red;" rows="3" cols="40"
+          value="<%= snippet.value %>"></textarea>
+
+        <!--'Edit Tag:' label & textarea:-->
+        <label for="editedTag">Edit Tag:</p>
+          <textarea name="editedTag" id="editedTag" style="color: red" rows="3" cols="40"
+            value="<%= snippet.tag %>"></textarea>
+
+          <!--Cancel & Edit buttons-->
+          <a href="/snippets" class="btn submitto">Cancel</a>
+          <input value="Edit it!" type="submit" class="btn btn-primary submitto marL">
     </div>
-    
-
-   
-
-    <input type="hidden" class="submitto" name="snippetId" value="<%= snippet.id %>">
+          <!--hidden input - send snippet id to POST route-->
+          <input type="hidden" class="submitto" name="snippetId" value="<%= snippet.id %>">
   </form>
+
+
 </div>
 
 
 
 
 <script>
-  let textAreaValue = document.querySelector("#editedValue")
-  let textAreaTag = document.querySelector("#editedTag")
-  console.log(textAreaValue)
-  textAreaValue.innerHTML = "<%= snippet.value %>"
-  textAreaTag.innerHTML = "<%= snippet.tag %>"
+  //populate text areas with values of a snippet
+
+  let textAreaValueEl = document.querySelector("#editedValue")
+  let textAreaTagEl = document.querySelector("#editedTag")
+
+  textAreaValueEl.innerHTML = "<%= snippet.value %>"
+  textAreaTagEl.innerHTML = "<%= snippet.tag %>"
+
 </script>
