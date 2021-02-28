@@ -1,36 +1,23 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 <!--main search page!-->
 
 <div class="container fluid landing">
 
-    <!--HEADING ROW-->
 
-    <div class="cont-headingRow">
-        <!--heading-->
-        
-       <div class="head-index"> 
-            <h2>SNIPPETS</h2><p class="memo">memorize to write</p>
-           
-            
-       </div>
-        
+    <div class="heading flex">
+        <h2>SNIPPETS</h2>
         <!--create button-->
-       
-            <form method="GET" action="/snippets/new">
-                <button class="btn btn-success create-tag">+&nbspcreate</button>
-            </form>
-       
-   
-
+        <form method="GET" action="/snippets/new">
+            <button class="btn btn-success create-btn submitto">+ create</button>
+        </form>
+    </div>
+        
 
     <!--SEARCH BAR & search button-->
     <p>
-        <input autofocus class="search" type="search" placeholder="search through tags" style="width: 300px;"">
+        <input autofocus class="search" type="search" placeholder="search through tags" style="width: 300px;">
         <input class="searchBtn" type="submit" value="search">
     </p>
-    </div>
-
-
 
     <!--elements after search bar but before snippets-->
     <div class="cont-underSearchBar">
@@ -90,15 +77,15 @@
     <!--'press tab to search'-->
     <p class="trans tabTip">press <span style="font-weight: 600;">tab</span> to search</p>
 
-    <!--spacer-->
-    <div style="height: 40px"></div>
+    <div class="spacer"></div>
     
     <!-- hidden refresh button-->
     <form method="GET" action="/snippets">
-        <button class="refresh" type="submit" style="display: none;"></button>
+        <button class="refresh hide"></button>
     </form>
 
 </div> <!--end of: bootstrap container-->
+
 
 
 
