@@ -1,17 +1,27 @@
-* {
-  font-family: sans-serif;
-  
-}
+
+
+
+
 /* changes the bootstrap into custom css */
 body{
   background:blanchedalmond !important;
   background-image: url('../image/snippet.png') !important;
 }
+
 nav ul li {
   text-decoration: none;
   display: inline-block;
   margin-right: .3em;
 }
+
+.navbar{
+  padding-top: 20px;
+  padding-bottom: -60px;
+}
+
+
+
+
 .fa-sign-in {
   color: blanchedalmond;
 }
@@ -27,6 +37,7 @@ nav ul li {
 .fa-sign-out{
   color: blanchedalmond;
 }
+
 .contain-loginSignin{
   margin: auto;
   width: 50%;
@@ -43,12 +54,7 @@ nav ul li {
 
 .submitto{
   margin-bottom: 10px !important;
-}
-
-.navbar{
-  padding-top: 20px;
-  padding-bottom: -60px;
-
+  box-shadow: 0 0 1px 3px rgba(0,0,0,0.5);
 }
 
 .float-right{
@@ -67,35 +73,35 @@ background-color : lightslategrey;
 opacity: 90%;
 } 
 
-.create-tag{
-  margin: auto ;
-  width: 50%;
-  margin-bottom: 10px;
-  
-}
 
-.memo{
-  font-style: italic;
-  font-weight: 400;
-}
-
-
-/* views/snippets/INDEX.EJS (heading row) */
-
-.cont-headingRow > *:not(:first-child) {
-  margin-left: 1rem;
-}
-/* making the h2 of index.ejs center */
-.cont-headingRow{
+.edit-home{
   margin: auto;
   width: 50%;
 }
 
-.head-index{
-  padding-top: 5px;
-  margin-left: 15px;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+
+
+.heading {
+  padding: 1rem 0 0 1rem;
+  background:rgba(200,0,0,0.2);
+  font-family: 'RocknRoll One';
 }
+
+
+
+.create-btn{
+  /* margin: auto; */
+  width: 100%;
+  margin-left: 10px;
+  
+}
+
+/* .memo{
+  font-style: italic;
+  font-weight: 400;
+} */
+
+
 
 /* views/snippets/INDEX.EJS (css grid) */
 .wrapper {
@@ -114,11 +120,14 @@ opacity: 90%;
     margin: auto;
     width: 50%;
     background-color : lightslategrey;
-    opacity: 0.98;
+    /* opacity: 0.98;
     padding: 10px;
     margin-top: 50px;
-    border-radius: 80px;
+    border-radius: 80px; */
 }
+
+
+
 
 
 
@@ -126,11 +135,6 @@ opacity: 90%;
   background-color: rgb(247, 247, 247);
   padding: 8px;
   border-radius: 1rem;
-}
-
-.edit-home{
-  margin: auto;
-  width: 50%;
 }
 
 .trans {
@@ -171,4 +175,21 @@ opacity: 90%;
   background-color: white;
   border-radius: 5px;
   padding: 5px;
+}
+
+.spacer {
+  height: 40px;
+}
+
+.hide {
+  display: none;
+}
+
+
+.marL {
+  margin-left: 10px;
+}
+
+.flex {
+  display: flex;
 }
