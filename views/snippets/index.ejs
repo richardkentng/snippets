@@ -4,8 +4,7 @@
 
     <!--HEADING ROW-->
     <div class="cont-headingRow">
-        <!--heading-->
-        <h2>SNIPPETS</h2>
+        
         
         <!--create button-->
         <form method="GET" action="/snippets/new">
@@ -19,26 +18,32 @@
     <!--SEACH BAR-->
     <p>
         <input autofocus class="search" type="search" placeholder="search through tags">
-        <input class="search" type="submit" value="search">
+        <!-- <input class="search" type="submit" value="search"> -->
     </p>
+    <!--heading-->
+    <h2 style="display:flex">SNIPPETS</h2>
 
     <!--CSS GRID  (will contain searchable snippets)-->
     <div class="wrapper">
         <!--loop through every snippet from database-->
         <% snippets.forEach((snippet, i) => { %>
             <!--snippet container  (css grid child)-->
-            <div class="snippet snippet<%= i %>">
-                
+            <div class="thumbParent snippet snippet<%= i %> ">
+
+
+                <% if(snippet.value.indexOf(".jpeg") !== -1 || snippet.value.indexOf(".gif") !== -1 || snippet.value.indexOf(".jpg") !== -1 || (snippet.value.indexOf(".png") !== -1)) { %>
+                        <img class="thumbPic" src="<%= snippet.value %>" height="350" width="440" style="margin-bottom:10px">
+                <% }  %>
 
                 <!--show 'value:' and snippet's value value-->
-                <div style="display: flex">
-                    <p class="trans">value:</p>&nbsp;
+                <div style="display: flex" class="snipValue">
                     <p class="value"><%= snippet.value %> </p>
                 </div>
+                
                 <!--show 'tag:' and snippet's tag value-->
-                <div style="display: flex">
+                <div class="tagDescription" style="display: flex">
                     <p class="score"></p>&nbsp;&nbsp;
-                    <p class="trans">tag:</p>&nbsp;
+                    <p class="trans" style="font-weight:bold;">tag(s)</p>&nbsp;
                     <p class="tag"><%= snippet.tag %></p>
                 </div>
                 <p>
@@ -57,9 +62,21 @@
 </div>
 
 
+
 <script>
-    //grab search element (input)
-    const search = document.querySelector('.search')
+
+    // store thumbpic parent for targeting children
+    let thumbParent = document.querySelectorAll(".thumbParent")
+    
+    thumbParent.forEach(parent => {        
+        // if pic (thumbPic object detected), get rid of snipvalue element 
+        let child = parent.querySelector(".snipValue")
+        if(parent.querySelector(".thumbPic")) parent.removeChild(child)
+    })
+
+
+//grab search element (input)
+const search = document.querySelector('.search')
     search.addEventListener('keydown', (e) => {
         if(e.key === "Enter" || e.target) {
             console.log('-------------------------PRESSED ENTER-------------------');
@@ -149,6 +166,7 @@
 
         } //end of: if pressed enter
     }) //end of: addEventListener for 'keydown' event
-    
+
+
 
 </script>

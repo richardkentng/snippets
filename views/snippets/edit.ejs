@@ -9,20 +9,17 @@
     </p>
     <p> edit this tag:</p>
     <p>
-      <textarea id="editedTag" style="color: red; overflow: hidden; width: 400px; height: 100px; padding:10px;" value="<%= snippet.tag %>"></textarea>
+      <textarea id="editedTag" name="editedTag" style="color: red; overflow: hidden; width: 400px; height: 100px; padding:10px;" value="<%= snippet.tag %>"></textarea>
     </p>
     <p><input type="submit" value="edit it!"></p>
     <input type="hidden" name="snippetId" value="<%= snippet.id %>">
   </form>
 </div>
 
-
-
-
 <script>
   let textAreaValue = document.querySelector("#editedValue")
   let textAreaTag = document.querySelector("#editedTag")
-  console.log(textAreaValue)
+
   textAreaValue.innerHTML = "<%= snippet.value %>"
   textAreaTag.innerHTML = "<%= snippet.tag %>"
 </script>
