@@ -1,16 +1,26 @@
-<!--main search page-->
-<div class="container">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--main search page!-->
+
+<div class="container fluid landing">
+
+    <!--HEADING ROW-->
 
     <div class="cont-headingRow">
-        <h2>SNIPPETS</h2>
+        <!--heading-->
+        
+       <div class="head-index"> 
+            <h2>SNIPPETS</h2><p class="memo">memorize to write</p>
+           
+            
+       </div>
+        
         <!--create button-->
-        <form method="GET" action="/snippets/new">
-            <button class="btn btn-success">+ create</button>
-        </form>
-        <!--display current user email-->
-        <p><%= user.email %></p>
-    </div>
-    
+       
+            <form method="GET" action="/snippets/new">
+                <button class="btn btn-success create-tag">+&nbspcreate</button>
+            </form>
+       
+   
 
 
     <!--SEARCH BAR & search button-->
@@ -18,6 +28,8 @@
         <input autofocus class="search" type="search" placeholder="search through tags" style="width: 300px;"">
         <input class="searchBtn" type="submit" value="search">
     </p>
+    </div>
+
 
 
     <!--elements after search bar but before snippets-->

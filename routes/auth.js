@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('../config/ppConfig')
+const passport = require('../config/ppConfig');
+const isLoggedIn = require('../middleware/isLoggedIn');
 const db = require("../models")
 
 router.get('/signup', (req, res) => {
@@ -19,7 +20,7 @@ router.post('/signup', (req, res) => {
     if (created) {
       // success
       passport.authenticate('local', {
-        successRedirect: '/',
+        successRedirect: '/snippets',
         successFlash: 'Account created and user logged in!'
       })(req, res)
     } else {
