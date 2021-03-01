@@ -1,141 +1,160 @@
-* {
-  font-family: sans-serif;
-  
+*  {
+  box-sizing: border-box !important;
+  margin: 0;
+  padding: 0;
 }
-/* changes the bootstrap into custom css */
+
 body{
-  background:blanchedalmond !important;
-  background-image: url('../image/snippet.png') !important;
+  background:rgb(151, 219, 215) !important;
+}
+
+
+.fa-sign-in, .fa-user, .fa-university, .fa-sign-out  {
+  color: rgb(78, 255, 208);
 }
 nav ul li {
   text-decoration: none;
   display: inline-block;
   margin-right: .3em;
 }
-.fa-sign-in {
-  color: blanchedalmond;
+.navbar{
+  padding-top: 20px;
+  padding-bottom: -60px;
+}
+.float-right{
+  margin-left: 30px;
+}
+a, .float-right{
+  color: rgb(54, 179, 146);
+}
+a:hover {
+  color: rgb(54, 179, 146);
+  font-weight: 900;
+}
+.a-signUp {
+  color: rgb(0, 157, 115);
+  font-weight: 500;
+  text-decoration: underline;
 }
 
-.fa-user{
-  color: blanchedalmond;
-}
 
-.fa-university{
-  color: blanchedalmond;
-}
-
-.fa-sign-out{
-  color: blanchedalmond;
-}
-.contain-loginSignin{
-  margin: auto;
-  width: 50%;
-  border: solid;
-  border-radius: 80px;
+.contain-loginSignin {
   margin-top: 50px;
-  width: 500px;
+  width: 300px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color : lightslategrey;
   opacity: 90%;
+  padding: 1rem;
+  border: solid;
+  border-radius: 80px;
 }
-
-.submitto{
-  margin-bottom: 10px !important;
-}
-
-.navbar{
-  padding-top: 20px;
-  padding-bottom: -60px;
-
-}
-
-.float-right{
-  color: #007BFF; 
-  margin-left: 30px;
-  width: 50%;
-}
-
-.new-create{
+.form {
 border: solid;
-width: 50%;
+width: 70%;
 margin: auto;
 margin-top: 40px;
 border-radius: 20px;
 background-color : lightslategrey;
 opacity: 90%;
 } 
-
-.create-tag{
-  margin: auto ;
-  width: 50%;
-  margin-bottom: 10px;
-  
+.landing{
+  width: 80%;
+  background-color : lightslategrey;
 }
-
-.memo{
+.heading {
+  font-family: 'RocknRoll One';
+}
+.memo {
   font-style: italic;
-  font-weight: 400;
 }
 
-
-/* views/snippets/INDEX.EJS (heading row) */
-
-.cont-headingRow > *:not(:first-child) {
-  margin-left: 1rem;
+.cont-head-create {
+  padding: 0.5rem 0 0 1rem;
+  font-family: 'RocknRoll One';
+  margin-bottom: 10px;
 }
-/* making the h2 of index.ejs center */
-.cont-headingRow{
+.cont-search-bar-btn {
+  margin-bottom: 12px;
+}
+.cont-underSearchBar {
+  width: 500px;
   margin: auto;
-  width: 50%;
 }
 
-.head-index{
-  padding-top: 5px;
-  margin-left: 15px;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+
+
+.searchBtn {
+  width: 100px;
+}
+.create-btn{
+  width: 100%;
+  margin-left: 10px;
+}
+.edit-btn {
+  margin: 5px;
+  padding: 5px 10px 5px 10px;
+  text-align: center;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+.delete-btn {
+  margin: 5px;
+  padding: 0 10px 0 10px;
+  text-align: center;
+  position: absolute;
+  right: 5px;
+  top: 51px;
+}
+.submitto{
+  border: 2px solid rgba(0,0,0,0.5);
+  font-family: sans-serif;
 }
 
-/* views/snippets/INDEX.EJS (css grid) */
+
+
 .wrapper {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 10px;
-  background-color: darkgray;
   padding: 0.7rem;
-  border-radius: 1rem;
-  text-align: center;
-  margin: auto;
-  width: 90%;
+  background-color: darkgray;
+  max-width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgb(52, 127, 155);
 }
-
-.landing{
-    margin: auto;
-    width: 50%;
-    background-color : lightslategrey;
-    opacity: 0.98;
-    padding: 10px;
-    margin-top: 50px;
-    border-radius: 80px;
-}
-
-
-
 .snippet {
   background-color: rgb(247, 247, 247);
-  padding: 1rem;
-  border-radius: 1rem;
+  display: flex;
+  position: relative;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgb(61, 134, 160);
+}
+.cont-value-tag {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+.cont-edit-del {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.value {
+  background-color: rgb(247, 247, 247);
+  margin-bottom: 10px;
+}
+img {
+  width: 100%;
+  margin-bottom: 10px;
 }
 
-.edit-home{
-  margin: auto;
-  width: 50%;
-}
 
-.trans {
-  opacity: 0.5;
-}
 
 .green {
   color: green;
@@ -144,4 +163,166 @@ opacity: 90%;
   padding: 5px;
   border-radius: 10px;
   box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+}
+.orange {
+  color: rgb(255, 68, 0);
+  font-weight: 600;
+}
+.onShift {
+  color: purple;
+  font-weight: 900;
+}
+.shiftBracket {
+  color: purple;
+  font-weight: 900;
+  font-size: 12px;
+}
+.red {
+  color: red;
+}
+.redBg {
+  color: red;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+}
+.gray {
+  color: rgb(167, 167, 167);
+}
+.trans {
+  opacity: 0.5;
+}
+.hide {
+  display: none;
+}
+.spacer {
+  height: 40px;
+}
+
+
+/* MARGIN: */
+.mar {
+  margin: 20px;
+}
+.marT {
+  margin-top: 20px;
+}
+.marL {
+  margin-left: 20px;
+}
+.marB {
+  margin-bottom: 20px;
+}
+.marL2 {
+  margin-left: 20px;
+}
+.marLR {
+  margin: 0 10px 0 10px;
+}
+
+
+.flex {
+  display: flex;
+}
+.inline-flex {
+  display: inline-flex;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-primary, .btn-danger {
+  border: 1px solid black;
+}
+.btn-cancel:hover {
+  background-color: rgba(0,0,0,0.2);
+}
+
+
+
+
+/* MEDIA QUERIES: */
+
+@media (min-width: 768px) {
+  .wrapper {
+    width: 650px;
+    margin: auto;
+  }
+  .snippet {
+    width: 627px;
+  }
+  .search {
+    width: 550px !important;
+  }
+  .cont-underSearchBar {
+    width: 650px;
+  }
+  .contain-loginSignin {
+    width: 500px;
+  }
+}
+
+@media (max-width: 767px) {
+  .wrapper {
+    width: 500px;
+    margin: auto;
+  }
+  .snippet {
+    width: 477px;
+  }
+  .search {
+    width: 400px !important;
+  }
+  .cont-underSearchBar {
+    width: 500px;
+  }
+}
+
+@media (max-width: 553px) {
+  .wrapper {
+    width: 450px;
+    margin: auto;
+  }
+  .snippet {
+    width: 427px;
+  }
+  .search {
+    width: 350px !important;
+  }
+  .cont-underSearchBar {
+    width: 450px;
+  }  
+}
+
+@media (max-width: 414px) {
+  .wrapper {
+    width: 375px;
+    margin: auto;
+  }
+  .snippet {
+    max-width: 360px;
+  }
+  .search {
+    width: 275px !important;
+  }
+  .cont-underSearchBar {
+    width: 375px;
+  }    
+}
+
+@media (max-width: 375px) {
+  .wrapper {
+    width: 360px;
+    margin: auto;
+  }
+  .snippet {
+    max-width: 324px;
+  }
+  .search {
+    width: 250px !important;
+  }
+  .cont-underSearchBar {
+    width: 360px;
+  }      
 }

@@ -20,7 +20,7 @@ router.post('/signup', (req, res) => {
     if (created) {
       // success
       passport.authenticate('local', {
-        successRedirect: '/',
+        successRedirect: '/snippets',
         successFlash: 'Account created and user logged in!'
       })(req, res)
     } else {
@@ -35,13 +35,11 @@ router.post('/signup', (req, res) => {
   })
 })
 
-router.get('/login', (req, res) => {
-  res.render('auth/login');
-});
+
 
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/snippets',
-  failureRedirect: '/auth/login',
+  failureRedirect: '/',
   successFlash: 'You have logged in!',
   failureFlash: 'Invalid username and/or password.'
 }))
@@ -50,7 +48,7 @@ router.get('/logout', (req, res) => {
   // .logout() is added to the req object by passport
   req.logout()
   req.flash('success', 'You have logged out!')
-  res.redirect('/auth/login')
+  res.redirect('/')
 })
 
 module.exports = router;
