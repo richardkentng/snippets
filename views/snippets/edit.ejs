@@ -1,0 +1,48 @@
+<div class="container landing form">
+  
+  
+  <form class="mar" method="POST" action="/snippets/?_method=PUT">
+    
+    <div class="text-center"><h2 class="heading">EDIT&nbsp;SNIPPET</h2></div>
+
+    
+      <!--'Edit Value:' label & textarea:-->
+      <div class="form-group">
+        <label for="editedValue">Edit Value:</label>
+        <textarea class="form-control" id="editedValue" name="editedValue"  value="<%= snippet.value %>" autofocus></textarea>
+      </div>
+
+      <!--'Edit Tag:' label & textarea:-->
+      <div class="form-group">
+        <label for="editedTag">Edit Tag:</label>
+        <textarea class="form-control" name="editedTag" id="editedTag"  value="<%= snippet.tag %>"></textarea>
+      </div>
+
+      <!--Cancel & Edit buttons-->
+      <div class="text-center">
+        <div class="inline-flex">
+          <a href="/snippets" class="btn btn-cancel submitto">Cancel</a>
+          <button type="submit" class="btn btn-primary submitto marL">Edit&nbsp;it!</button>
+        </div>
+      </div>
+      
+      <!--hidden input - send snippetId to route-->
+      <input type="hidden" class="submitto" name="snippetId" value="<%= snippet.id %>">
+  </form>
+
+  
+
+</div>
+
+
+
+
+<script>
+  //populate text areas with values of a snippet
+
+  let textAreaValueEl = document.querySelector("#editedValue")
+  let textAreaTagEl = document.querySelector("#editedTag")
+
+  textAreaValueEl.innerHTML = "<%= snippet.value %>"
+  textAreaTagEl.innerHTML = "<%= snippet.tag %>"
+</script>

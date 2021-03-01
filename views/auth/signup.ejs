@@ -1,12 +1,33 @@
-<form action="/auth/signup" method="POST">
-  <label for="new-email">Email</label>
-  <input id="new-email" type="email" name="email" required>
+<h2 class="heading marT text-center">SNIPPETS</h2>
+<p class="memo text-center">Tired of remembering things? Ugh. <br><br> Create snippets of information with <br> your own tags, and never worry again!</p>
+<p class="text-center">Already have an account?  <a class="a-signUp" href="/">Log in!</a></p>
 
-  <label for="new-name">Name</label>
-  <input id="new-name" type="text" name="name">
 
-  <label for="new-password">Password</label>
-  <input id="new-password" type="password" name="password" min="8">
+<div class="container fluid contain-loginSignin">
+  
+    <form action="/auth/signup" method="POST">
+      <div class="cont-register">
+  
+        <div class="marB text-center"><h1 class="heading">Sign up!</h1></div>
 
-  <input type="submit" value="Sign up">
-</form>
+          <div class="form-group">
+            <label for="new-email">Email</label>
+            <input autofocus id="new-email" type="email" class="form-control" name="email" required>
+          </div>
+        
+          <div class="form-group">
+            <label hidden for="new-name">Name</label>
+            <input hidden id="new-name" type="text" class="form-control" name="name" value="genericName">
+          </div>
+        
+          <div class="form-group">
+            <label for="new-password">Password</label>
+            <input id="new-password" type="password" class="form-control" name="password" min="8">
+          </div>
+    
+          <div class="text-center"><input class = "submitto btn btn-primary " type="submit" value="Sign up"></div>
+        
+      </div>
+    </form>
+
+</div>
