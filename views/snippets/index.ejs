@@ -1,29 +1,32 @@
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 <!--main search page!-->
 
-<div class="container fluid landing">
+<div class="container">
 
 
-    <div class="heading flex">
-        <h2>SNIPPETS</h2>
-        <!--create button-->
-        <form method="GET" action="/snippets/new">
-            <button class="btn btn-success create-btn submitto">+ create</button>
-        </form>
+    <div class="text-center cont-head-create">
+            <div class="inline-flex">
+                <h2 class="snippetsH2">SNIPPETS</h2>
+                <!--create button-->
+                <form method="GET" action="/snippets/new">
+                    <button class="btn btn-success create-btn submitto">+&nbsp;Create</button>
+                </form>
+            </div>
     </div>
         
 
     <!--SEARCH BAR & search button-->
-    <p>
-        <input autofocus class="search" type="search" placeholder="search through tags" style="width: 300px;">
-        <input class="searchBtn" type="submit" value="search">
-    </p>
+    <div class="text-center">
+        <div class="inline-flex cont-search-bar-btn">
+                <input autofocus class="search form-control" type="search" placeholder="search through tags" style="width: 300px;">
+                <button class="searchBtn btn btn-warning submitto" type="submit">Search</button>
+        </div>
+    </div>
 
     <!--elements after search bar but before snippets-->
     <div class="cont-underSearchBar">
 
         <!--hint, '[TAB]', and 'no tags start with..'-->
-        <div style="display: flex;">
+        <div class="flex">
             <div class="cont-hint" style="opacity: 0;">
                 <!--hint and '[TAB]'-->
                 <span class="hint" style="font-weight: 900;">hint</span>&nbsp
@@ -43,39 +46,56 @@
     <!--grid container (contains the snippets)-->
     <div class="wrapper">
         <!--loop through every snippet from database-->
+        <% let atLeastOneSnippet = false %> 
         <% snippets.forEach((snippet, i) => { %>
+            <% atLeastOneSnippet = true %>             
                 <!--individual snippet container-->
                 <div class="snippet snippet<%= i %>">
                     <!--snippet's value-->
-                    <div style="display: flex;">
-                        <p class="trans">value:</p>&nbsp;
-                        <p class="value"><%= snippet.value %> </p>
+
+
+                    <div class="cont-value-tag">
+
+                        <!-- if value contains .jpeg, gif, png, or jpg, then show an image -->
+                        <% if(snippet.value.indexOf(".jpeg") !== -1 || snippet.value.indexOf(".gif") !== -1 || snippet.value.indexOf(".jpg") !== -1 || (snippet.value.indexOf(".png") !== -1)) { %>
+                            <img class="thumbPic" src="<%= snippet.value %>">
+                        <% }  %>
+
+                        <div class="flex">
+                            <p class="trans"></p>&nbsp;  <!--value:-->
+                            <textarea readonly class="value value<%= i %> form-control"><%= snippet.value %> </textarea>
+                        </div>
+    
+                        <div class="flex">
+                            <!--snippet's tag-->
+                            <p class="score"></p>&nbsp;&nbsp;
+                            <p class="gray">tag(s)&nbsp;</p>&nbsp;
+                            <p class="tag"><%= snippet.tag %></p>
+                        </div>
                     </div>
 
-                    <div style="display: flex">
 
-                        <!--snippet's tag-->
-                        <p class="score"></p>&nbsp;&nbsp;
-                        <p class="trans">tag:</p>&nbsp;
-                        <p class="tag"><%= snippet.tag %></p>
 
-                        <!-- edit button -->
-                        <form method="GET" action="/snippets/edit/<%= snippet.id %>">
-                            <button type="submit" style="margin-left: 1rem;">edit</button>
-                        </form>
-
-                        <!-- delete button -->
-                        <form  method="POST" action="/snippets/delete/<%= snippet.id %>?_method=DELETE">
-                            <button type="submit" style="margin-left: 1rem;">delete</button>
-                        </form>
-
-                    </div>
+                        
+                        <div class="cont-edit-del">
+                            <!-- edit button -->
+                            <form method="GET" action="/snippets/edit/<%= snippet.id %>">
+                                <button class="edit-btn btn btn-primary" type="submit" style="margin-left: 1rem;">Edit</button>
+                            </form>
+    
+                            <!-- delete button -->
+                            <form  method="POST" action="/snippets/delete/<%= snippet.id %>?_method=DELETE">
+                                <button class="btn btn-danger delete-btn" type="submit" style="margin-left: 1rem;">Del</button>
+                            </form>
+                        </div>
                 </div>
         <% }) %>
-    </div>
 
-    <!--'press tab to search'-->
-    <p class="trans tabTip">press <span style="font-weight: 600;">tab</span> to search</p>
+        <% if (!atLeastOneSnippet) { %>
+            <p class="text-center">You have no snippets! &nbsp;Click 'create' to make one.</p>
+        <% } %>
+
+    </div>  <!--end of: grid container-->
 
     <div class="spacer"></div>
     
@@ -89,18 +109,15 @@
 
 
 
-
-
-
-
 <script>
-
     //grab elements
     const snippets = document.querySelectorAll('.snippet')
     const searchEl = document.querySelector('.search')
     const searchBtn = document.querySelector('.searchBtn')
     const contUnderSearchBar = document.querySelector('.cont-underSearchBar')
     const wrapper = document.querySelector('.wrapper')
+    const refreshEl = document.querySelector('.refresh')
+    const header2El = document.querySelector('.snippetsH2')
 
     //******** grab elements relating to the keypress event listener
     //grab container for '_someTag_ [TAB]'
@@ -128,13 +145,26 @@
     //the number of snippets who have at least one matching tag to the search
     let numResults = 0
 
-
     //create array of tags from all snippets on the page
     let allTags = getTagsFromAllDisplayedSnippets()
 
 
+
+    // store thumbpic parent for targeting children
+    let thumbParents = document.querySelectorAll('.snippet')
+    // if pic (thumbPic object detected), get rid of value element 
+    thumbParents.forEach((parent, i) => {        
+        if(parent.querySelector(".thumbPic")) parent.querySelector(`.value${i}`).remove()
+    })
+
+    
+
+
+    //***** ADD EVENT LISTENERS:
+    //clicking the search button will initiate search
     searchBtn.addEventListener('click', () => {
         submitSearch()
+        searchEl.focus()
     })
 
     //for every key pressed in search bar, calculate possible tags, display the results of the findings
@@ -142,7 +172,7 @@
         onKeyDown(e)
     })
 
-    // press tab to focus the search bar
+    // press TAB to focus the search bar
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Tab' && document.activeElement !== searchEl) {
             setTimeout(() => {
@@ -150,6 +180,15 @@
             }, 30)
         }
     })
+    //click the 'SNIPPETS' header text to refresh page
+    header2El.addEventListener('click', (e) => {
+        refreshEl.click()
+    })
+
+
+
+
+
 
 
     //FUNCTIONS:
@@ -169,7 +208,7 @@
                 //if search bar is empty
                 if (removeExtraSpaces(inputStr) === '') {
                     //refresh page (will show all elements)
-                    document.querySelector('.refresh').click()
+                    refreshEl.click()
                 } else if (inputStr[inputStr.length - 1] === ' ') {
                     //if right-most character is a space:
                     invisify_contHintEl_notFoundEl()
@@ -330,8 +369,6 @@
                 document.querySelector('.noResults').remove()
             }
 
-            //hide line that says: 'press tab to search'
-            document.querySelector('.tabTip').style.display = 'none'
             //collapse all hint-related elements 
             contUnderSearchBar.style.display = 'none'
 
@@ -343,8 +380,9 @@
             numResults = 0;
             //loop through every snippet, compare tags to search bar, apply order property
             for (let snippet of snippets) {
-                //reset display of snippet (because snippets have their display set to none if they have no matches)
+                //reset display, background color of snippet
                 snippet.style.display = 'block'
+                snippet.style.backgroundColor = 'rgb(247, 247, 247)'
 
                 //grab specific children elements from current snippet
                 const tagEl = document.querySelector(`.snippet${inc} .tag`)
@@ -362,6 +400,7 @@
                         score++
                         snippetTags[i] = `<span class="green">${snippetTags[i]}</span>`
                     }
+                    
                 })
                 //display (potentially-with-class-of-green) tags of snippet
                 tagEl.innerHTML = snippetTags.join(' ')
@@ -395,14 +434,14 @@
             if (allOrderValues[0] !== allOrderValues[1]) {
                 for (let snippet of snippets) {
                     if (snippet.style.order === allOrderValues[0]) {
-                        snippet.style.backgroundColor = '#d9ffb3'
+                        snippet.style.backgroundColor = 'rgb(206 255 157)'
                     }
                 }
             //make at snippets YELLOW if that share the same order(must be non-zero)
             } else if ((allOrderValues[0] === allOrderValues[1]) && (allOrderValues[0] !== '0')) {
                 for (let snippet of snippets) {
                     if (snippet.style.order === allOrderValues[0]) {
-                        snippet.style.backgroundColor = '#ffffb3'
+                        snippet.style.backgroundColor = 'rgb(255 255 171)'
                     }
                 }
             }
@@ -412,7 +451,7 @@
             //if there are no results, display no results message
             if (numResults === 0) {
                 const noResultsEl = document.createElement('p')
-                noResultsEl.innerHTML = '<span class="redBg noResults">No results. Press \'escape\' and try again.'
+                noResultsEl.innerHTML = '<div class="text-center"><span class="redBg noResults">No results. Press \'escape\' and try again.</div>'
                 wrapper.appendChild(noResultsEl)
             }
     } //end of: submitSearch function
@@ -484,4 +523,29 @@
         })
         return uniqueAllTags.slice()
     }
+
+
+    function removeExtraSpaces(str) {
+    //if string has 2 spaces, replace them with one space, until no more 2 spaces are found
+    let i = 0;
+    while (str.indexOf('  ') !== -1) {
+        str = str.replace('  ',' ')
+        i++
+    }
+    //if first character of string is a space, remove it
+    if (str[0] === ' ') {
+        const strChars = str.split('')
+        strChars.shift()
+        str = strChars.join('')
+    }
+    //if last character of string is a space, remove it    
+    if (str[str.length - 1] === ' ') {
+        const strChars2 = str.split('')
+        strChars2.pop()
+        str = strChars2.join('')
+    }
+    return str
+}
+
+
 </script>
