@@ -4,69 +4,53 @@
   padding: 0;
 }
 
-
-
-/* changes the bootstrap into custom css */
 body{
-  background:blanchedalmond !important;
-  /* background-image: url('../image/snippet.png') !important; */
+  background:rgb(151, 219, 215) !important;
 }
 
+
+.fa-sign-in, .fa-user, .fa-university, .fa-sign-out  {
+  color: rgb(78, 255, 208);
+}
 nav ul li {
   text-decoration: none;
   display: inline-block;
   margin-right: .3em;
 }
-
 .navbar{
   padding-top: 20px;
   padding-bottom: -60px;
 }
-
-
-
-
-.fa-sign-in {
-  color: blanchedalmond;
+.float-right{
+  margin-left: 30px;
+}
+a, .float-right{
+  color: rgb(54, 179, 146);
+}
+a:hover {
+  color: rgb(54, 179, 146);
+  font-weight: 900;
+}
+.a-signUp {
+  color: rgb(0, 157, 115);
+  font-weight: 500;
+  text-decoration: underline;
 }
 
-.fa-user{
-  color: blanchedalmond;
-}
 
-.fa-university{
-  color: blanchedalmond;
-}
-
-.fa-sign-out{
-  color: blanchedalmond;
-}
-
-.contain-loginSignin{
-  margin: auto;
-  width: 50%;
-  border: solid;
-  border-radius: 80px;
+.contain-loginSignin {
   margin-top: 50px;
-  width: 500px;
+  width: 300px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color : lightslategrey;
   opacity: 90%;
   padding: 1rem;
+  border: solid;
+  border-radius: 80px;
 }
-
-.submitto{
-  border: 2px solid rgba(0,0,0,0.5);
-  font-family: sans-serif;
-}
-
-.float-right{
-  color: #007BFF; 
-  margin-left: 30px;
-}
-
 .form {
 border: solid;
 width: 70%;
@@ -76,42 +60,39 @@ border-radius: 20px;
 background-color : lightslategrey;
 opacity: 90%;
 } 
-
-
+.landing{
+  width: 80%;
+  background-color : lightslategrey;
+}
 .heading {
-  /* background:rgba(200,0,0,0.2); */
   font-family: 'RocknRoll One';
+}
+.memo {
+  font-style: italic;
 }
 
 .cont-head-create {
-  padding: 1rem 0 0 1rem;
+  padding: 0.5rem 0 0 1rem;
   font-family: 'RocknRoll One';
   margin-bottom: 10px;
 }
-
-
-.create-btn{
-  /* margin: auto; */
-  width: 100%;
-  margin-left: 10px;
-}
-
 .cont-search-bar-btn {
   margin-bottom: 12px;
 }
-
 .cont-underSearchBar {
-  /* background-color: rgb(187, 174, 174); */
   width: 500px;
   margin: auto;
 }
 
+
+
 .searchBtn {
   width: 100px;
 }
-
-
-
+.create-btn{
+  width: 100%;
+  margin-left: 10px;
+}
 .edit-btn {
   margin: 5px;
   padding: 5px 10px 5px 10px;
@@ -120,7 +101,6 @@ opacity: 90%;
   top: 5px;
   right: 5px;
 }
-
 .delete-btn {
   margin: 5px;
   padding: 0 10px 0 10px;
@@ -129,20 +109,13 @@ opacity: 90%;
   right: 5px;
   top: 51px;
 }
-
-.value {
-  background-color: rgb(247, 247, 247);
-  margin-bottom: 10px;
+.submitto{
+  border: 2px solid rgba(0,0,0,0.5);
+  font-family: sans-serif;
 }
 
-/* .memo{
-  font-style: italic;
-  font-weight: 400;
-} */
 
 
-
-/* views/snippets/INDEX.EJS (css grid) */
 .wrapper {
   display: grid;
   grid-template-columns: 1fr;
@@ -150,73 +123,38 @@ opacity: 90%;
   padding: 0.7rem;
   background-color: darkgray;
   max-width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgb(52, 127, 155);
 }
-
-
 .snippet {
   background-color: rgb(247, 247, 247);
-  /* background-color: goldenrod; */
   display: flex;
-  /*border-radius: 1rem;*/
   position: relative;
   padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgb(61, 134, 160);
 }
-
+.cont-value-tag {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+.cont-edit-del {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.value {
+  background-color: rgb(247, 247, 247);
+  margin-bottom: 10px;
+}
 img {
   width: 100%;
   margin-bottom: 10px;
 }
 
-.cont-value-tag {
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  /* background-color: purple; */
-}
 
-.cont-edit-del {
-  width: 20%;
-  display: flex;
-  flex-direction: column;
-  /* background-color: darkslateblue; */
-  align-items: flex-end;
-}
-
-
-
-
-
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-}
-
-  
-
-
-.landing{
-    width: 80%;
-    background-color : lightslategrey;
-    /* opacity: 0.98;
-    padding: 10px;
-    margin-top: 50px;
-    border-radius: 80px; */
-}
-
-
-
-
-
-
-
-
-.trans {
-  opacity: 0.5;
-}
-.gray {
-  color: rgb(167, 167, 167);
-}
 
 .green {
   color: green;
@@ -226,40 +164,39 @@ img {
   border-radius: 10px;
   box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
 }
-
 .orange {
   color: rgb(255, 68, 0);
   font-weight: 600;
 }
-
 .onShift {
   color: purple;
   font-weight: 900;
 }
-
 .shiftBracket {
   color: purple;
   font-weight: 900;
   font-size: 12px;
 }
-
 .red {
   color: red;
 }
-
 .redBg {
   color: red;
   background-color: white;
   border-radius: 5px;
   padding: 5px;
 }
-
-.spacer {
-  height: 40px;
+.gray {
+  color: rgb(167, 167, 167);
 }
-
+.trans {
+  opacity: 0.5;
+}
 .hide {
   display: none;
+}
+.spacer {
+  height: 40px;
 }
 
 
@@ -267,48 +204,37 @@ img {
 .mar {
   margin: 20px;
 }
-
+.marT {
+  margin-top: 20px;
+}
 .marL {
   margin-left: 20px;
 }
-
 .marB {
   margin-bottom: 20px;
 }
-
-
 .marL2 {
   margin-left: 20px;
 }
-
 .marLR {
   margin: 0 10px 0 10px;
 }
 
 
-
-/* FLEX: */
 .flex {
   display: flex;
 }
-
 .inline-flex {
   display: inline-flex;
 }
-
-
-
-.btn-primary {
-  /* background-color: rgb(86, 86, 140); */
-  border: 1px solid black;
-}
-.btn-danger {
-  /* position: absolute;
-  right: 20px; */
-  /* background-color: rgb(131, 63, 63); */
-  border: 1px solid black;
+.flex-col {
+  display: flex;
+  flex-direction: column;
 }
 
+.btn-primary, .btn-danger {
+  border: 1px solid black;
+}
 .btn-cancel:hover {
   background-color: rgba(0,0,0,0.2);
 }
@@ -316,18 +242,9 @@ img {
 
 
 
-
-
-
-
-
 /* MEDIA QUERIES: */
 
 @media (min-width: 768px) {
-  body {
-    background-color: skyblue !important;
-  }
-
   .wrapper {
     width: 650px;
     margin: auto;
@@ -341,16 +258,12 @@ img {
   .cont-underSearchBar {
     width: 650px;
   }
+  .contain-loginSignin {
+    width: 500px;
+  }
 }
 
-
-
-
 @media (max-width: 767px) {
-  body {
-    background-color: darkseagreen!important;
-  }
-
   .wrapper {
     width: 500px;
     margin: auto;
@@ -366,12 +279,7 @@ img {
   }
 }
 
-
 @media (max-width: 553px) {
-  body {
-    background-color: rgb(118, 90, 65)!important;
-  }
-
   .wrapper {
     width: 450px;
     margin: auto;
@@ -388,10 +296,6 @@ img {
 }
 
 @media (max-width: 414px) {
-  body {
-    background-color: rgb(255, 0, 0)!important;
-  }
-
   .wrapper {
     width: 375px;
     margin: auto;
@@ -408,9 +312,6 @@ img {
 }
 
 @media (max-width: 375px) {
-  body {
-    background-color: rgb(136, 0, 255)!important;
-  }
   .wrapper {
     width: 360px;
     margin: auto;
