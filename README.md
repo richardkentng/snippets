@@ -2,7 +2,7 @@
 A web app where users can sign in, create “snippets” of data defined with tags, and search through them!
 
 
-![twofish](/images/hSearchGreen.png)
+![twofish](/public/image/hSearchGreen.png)
 
 ### Technologies Used:
 - HTML
