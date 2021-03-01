@@ -2,98 +2,77 @@
 A web app where users can sign in, create “snippets” of data defined with tags, and search through them! (Scroll down to check out the details!)
 
 ![home page search results](/public/image/hSearchGreen.png)
-### Log In Page
-![log in page](/public/image/hLogIn.png)
-### Create Page
+### Sign Up Page (the log in page is very similar):
+![Sign Up Page](/public/image/hSignUp.png)
+### First-time Users Greeting:
+![First-time Users Greeting](/public/image/hSearchNoSnippets.png)
+### Create Snippet Page:
 ![create snippet page](/public/image/hCreateSnippet.png)
-### Edit Page
+### Edit Snippet Page:
 ![edit snippet page](/public/image/hEditSnippet.png)
+### Mobile Responsiveness:
+![Mobile Responsiveness](/public/image/hResponsives.png)
 
+
+
+## Wireframes: 
+### Home Page:
+![Home Page](/public/image/wSearch.png)
+### Create Page:
+![Create Snippet Page](/public/image/wCreate.png)
+### Edit Page:
+![Edit Snippet Page](/public/image/wEdit.png)
 
 ### Technologies Used:
 - HTML
 - CSS
 - Javascript
-- https://randomuser.me/ (API)
+- CSS grid & flexbox
 
-### User Stories:
+### Dependencies: (from package.json)
+```
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "express-session": "^1.17.1",
+    "method-override": "^3.0.0",
+    "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "pg": "^8.4.1",
+    "sequelize": "^6.3.5"
+  }
+```
+
+## User Stories:
 ##### MVP GOALS:
-- (Bronze) As a user, when I click “male” or “female”, I only want to view profiles of that gender.
-- (Bronze) As a user, when I click “next”, I want to view another user profile that meets the parameters specified above.
+- As a user, I want to log in or sign up.
+- As a user, after I log in, I want to see my email displayed in the top-right corner.
+- As a user, when I click ‘create’, I want to see two editable fields, one where I can input tag(s), and another where I can input a value.
+- As a user, I want to search for tags in the search bar and press enter, so that the snippets with more tag matches appear higher up. 
+- As a user,  when I click ‘edit’ on any snippet from the home page, I want to be directed to an edit page where I can add/remove tag(s), and change the value.
+- As a user, I want to be able to delete any snippet.parameters specified above.
 ##### STRETCH GOALS:
-- (Silver) As a user, I can click “either” to view both male and female profiles.
-- (Silver) As a user, I can click “age range” to specify an age range.
-- (Silver) As a user, I can click “prev fish” to see previous profile.
-- (Gold) As a user, I can click “save fish” to save profile.  
-- (Gold) As a user, I can click “pond” to view saved profiles.
-- (Gold) As a user, when I click “save fish”, I want an animation of a fish to travel from the “save” button to the “pond” button.
+- As a user, I want to make case-insensitive searches for my tags.
+- As a user, after I make a search, I want to see my tag-matches highlighted in green per snippet. (Extra:  For each snippet, next to the tags, show a number displaying how many tags matched!)
+- As a user, I want to input an image link in the ‘value’ field for a snippet, so that the snippet will display the image above the value input field.
+- As a user, when I view the web app from a narrow window or from a mobile device, I want the UI elements to adjust accordingly to maintain functionality and aesthetics.
+- As a user, when I start typing a tag in the search bar, I want to see a tip that shows me what tags are available, so that I can press the ‘Tab’ key to accept the suggested tag.
 
-
-
-## Challenges
-##### CORS error:
-Sometimes, without explanation, the API will fail to fetch,
-and will catch a CORS error.  When this happens 3 times in a
-row, I will show the user an alert, asking them to wait for a
-moment before continuing.
-![silver](/images/cors.png)
-
-## Bugs
-Although the gender-selection works flawlessly,
-the country-selection occassionaly ignores the 
-selected country, and displays random countries
-instead.
 
 ## Triumphs
 
 
-### Smart coding
-##### API fetches at least 100 results at a time.
-I do not want to run the API everytime the user presses 'Next'. 
-That would take too long, and it would risk more API errors.
-Instead, I wanted to grab at least a hundred results at a time,
-so that I can strike a balance between user effciency and risk
-of overwhelming the API.
 
-```
-let numResults = 100
-fetch(`https://randomuser.me/api/?results=${numResults}`)
-```
-### Cool features
-##### Progress bar:  
-No application is complete without some kind of progress bar!
-This baby simply uses two numbers, the current index, and the array length,
-and divides them and stuff in order to get a percentage that I can feed into
-the CSS width percentage of my progress bar.
-```
-//update progress bar
-function updateFirst() {
-    //calculate percentage fraciton
-    const num1 = currentIndex + 1;
-    const num2 = peopleGbl.length;
-    const fraction = num1/num2
-    let percent = Math.floor(fraction * 100)
-    if (percent === 99) {
-        percent = 100;
-    }
-    first.style.width = `${percent}%`
-}
-```
 
-### Layouts vs Results 
-##### Age Input?
-I did not end up using age input because the API
-produced ages that didn't make sense.  For example,
-it would show an image of a young man, and claim that 
-he was 80 years old!  Instead, I decided to use my time to
- make a select-country input instead.  After all, people 
-only want to contact others who speak the same language!  
-##### Saving User Profiles?
-I suppose I could have explored localStorage, so that users could
-maybe store favorited profile information on their computer, but I 
-used my allotted time to make a progress bar, and a select-country
-input instead.  When I learn about online databases and servers,
-that's when I'll look more into saving data!
+## Bugs
+
+
+
 
 
 ### Final Thoughts
