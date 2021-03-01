@@ -1,10 +1,12 @@
 # SNIPPETS
 A web app where users can sign in, create “snippets” of data defined with tags, and search through them! (Scroll down to check out the details!)
 
-
 ![home page search results](/public/image/hSearchGreen.png)
+### Log In Page
 ![log in page](/public/image/hLogIn.png)
+### Create Page
 ![create snippet page](/public/image/hCreateSnippet.png)
+### Edit Page
 ![edit snippet page](/public/image/hEditSnippet.png)
 
 
