@@ -1,8 +1,12 @@
 # SNIPPETS
-A web app where users can sign in, create “snippets” of data defined with tags, and search through them!
+A web app where users can sign in, create “snippets” of data defined with tags, and search through them! (Scroll down to check out the details!)
 
 
-![twofish](/public/image/hSearchGreen.png)
+![home page search results](/public/image/hSearchGreen.png)
+![log in page](/public/image/hLogIn.png)
+![create snippet page](/public/image/hCreateSnippet.png)
+![edit snippet page](/public/image/hEditSnippet.png)
+
 
 ### Technologies Used:
 - HTML
@@ -23,28 +27,8 @@ A web app where users can sign in, create “snippets” of data defined with ta
 - (Gold) As a user, when I click “save fish”, I want an animation of a fish to travel from the “save” button to the “pond” button.
 
 
-## Bronze Layout
-- User can choose to view only male or female profiles.
-- User can click “next fish” to see another profile.
-![bronze](/images/bronze.png)
 
-
-
-## Silver Layout
-- User can click “either” to view both male and female profiles.
-- User can click “age range” to specify an age range.
-- User can click “prev fish” to see previous profile.
-![gold](/images/silver.png)
-
-
-
-## Gold Layout
-- User can click “save fish” to save profile.  
-- User can click “pond” to view saved profiles.
-![silver](/images/gold.png)
-
-
-### Unsolved Problems
+## Challenges
 ##### CORS error:
 Sometimes, without explanation, the API will fail to fetch,
 and will catch a CORS error.  When this happens 3 times in a
@@ -52,35 +36,14 @@ row, I will show the user an alert, asking them to wait for a
 moment before continuing.
 ![silver](/images/cors.png)
 
-### Bugs
+## Bugs
 Although the gender-selection works flawlessly,
 the country-selection occassionaly ignores the 
 selected country, and displays random countries
 instead.
 
-### Major hurdle
-##### How to detect a change in search parameters?:
-I needed to figure out a way to detect whether that search parameters were
-changed between each click of the 'Next' button.  I realized that I could 
-save all the search-paramter values at specific times, so that I could 
-reference them later.
-```
-//the function below will record the current search parameters
+## Triumphs
 
-//Whenever the user clicks 'Next', these remembered values will be checked.
-
-//If current values are different than the remembered values, this means
-//that at least one search paramter has been changed.  As a result, the API
-//must run, so that it can attain a new array of results that match the 
-//search parameters.
-
-const updateRemValues = () => {
-    remMale = male;
-    remEither = either;
-    remFemale = female;
-    remCountryValue = selectCountry.value;
-}
-```
 
 ### Smart coding
 ##### API fetches at least 100 results at a time.
