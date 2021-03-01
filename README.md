@@ -1,107 +1,143 @@
-# Express Authentication
+# SNIPPETS
+A web app where users can sign in, create “snippets” of data defined with tags, and search through them!
 
-Express authentication template using Passport + flash messages + custom middleware
 
-## What it includes
+![twofish](/images/hSearchGreen.png)
 
-* Sequelize user model / migration
-* Settings for PostgreSQL
-* Passport and passport-local for authentication
-* Sessions to keep user logged in between pages
-* Flash messages for errors and successes
-* Passwords that are hashed with BCrypt
-* EJS Templating and EJS Layouts
+### Technologies Used:
+- HTML
+- CSS
+- Javascript
+- https://randomuser.me/ (API)
 
-### User Model
+### User Stories:
+##### MVP GOALS:
+- (Bronze) As a user, when I click “male” or “female”, I only want to view profiles of that gender.
+- (Bronze) As a user, when I click “next”, I want to view another user profile that meets the parameters specified above.
+##### STRETCH GOALS:
+- (Silver) As a user, I can click “either” to view both male and female profiles.
+- (Silver) As a user, I can click “age range” to specify an age range.
+- (Silver) As a user, I can click “prev fish” to see previous profile.
+- (Gold) As a user, I can click “save fish” to save profile.  
+- (Gold) As a user, I can click “pond” to view saved profiles.
+- (Gold) As a user, when I click “save fish”, I want an animation of a fish to travel from the “save” button to the “pond” button.
 
-| Column Name | Data Type | Notes |
-| --------------- | ------------- | ------------------------------ |
-| id | Integer | Serial Primary Key, Auto-generated |
-| name | String | Must be provided |
-| email | String | Must be unique / used for login |
-| password | String | Stored as a hash |
-| createdAt | Date | Auto-generated |
-| updatedAt | Date | Auto-generated |
 
-### Default Routes
+## Bronze Layout
+- User can choose to view only male or female profiles.
+- User can click “next fish” to see another profile.
+![bronze](/images/bronze.png)
 
-| Method | Path | Location | Purpose |
-| ------ | ---------------- | -------------- | ------------------- |
-| GET | / | server.js | Home page |
-| GET | /auth/login | auth.js | Login form |
-| GET | /auth/signup | auth.js | Signup form |
-| POST | /auth/login | auth.js | Login user |
-| POST | /auth/signup | auth.js | Creates User |
-| GET | /auth/logout | auth.js | Removes session info |
-| GET | /profile | server.js | Regular User Profile |
 
-## Steps To Use
 
-#### 1. Create a new repo on Github and use your 'express-authentication' as the template
+## Silver Layout
+- User can click “either” to view both male and female profiles.
+- User can click “age range” to specify an age range.
+- User can click “prev fish” to see previous profile.
+![gold](/images/silver.png)
 
-When we are finished with this boilerplate, we are going to make it a template on Github that will allow us to create a new repo on Github with all this code already loaded in.
-* Go to `github.com` and create a new repository. In the template dropdown, choose this template.
-* Clone your new repo to your local machine
-* Get Codin'!
 
-#### 2. Delete any .keep files
 
-The `.keep` files are there to maintain the file structure of the auth. If there is a folder that has nothing in it, git won't add it. The dev work around is to add a file to it that has nothing in it, just forces git to keep the folder so we can use it later.
+## Gold Layout
+- User can click “save fish” to save profile.  
+- User can click “pond” to view saved profiles.
+![silver](/images/gold.png)
 
-#### 3. Install node modules from the package.json
 
+### Unsolved Problems
+##### CORS error:
+Sometimes, without explanation, the API will fail to fetch,
+and will catch a CORS error.  When this happens 3 times in a
+row, I will show the user an alert, asking them to wait for a
+moment before continuing.
+![silver](/images/cors.png)
+
+### Bugs
+Although the gender-selection works flawlessly,
+the country-selection occassionaly ignores the 
+selected country, and displays random countries
+instead.
+
+### Major hurdle
+##### How to detect a change in search parameters?:
+I needed to figure out a way to detect whether that search parameters were
+changed between each click of the 'Next' button.  I realized that I could 
+save all the search-paramter values at specific times, so that I could 
+reference them later.
 ```
-npm install
-```
+//the function below will record the current search parameters
 
-(Or just `npm i` for short)
+//Whenever the user clicks 'Next', these remembered values will be checked.
 
-#### 4. Customize with new project name
+//If current values are different than the remembered values, this means
+//that at least one search paramter has been changed.  As a result, the API
+//must run, so that it can attain a new array of results that match the 
+//search parameters.
 
-Remove defaulty type stuff. Some areas to consider are:
-
-* Title in `layout.ejs`
-* Description/Repo Link in `package.json`
-* Remove boilerplate's README content and replace with new project's readme
-
-#### 5. Create a new database for the new project
-
-Using the sequelize command line interface, you can create a new database from the terminal.
-
-```
-createdb <new_db_name>
-```
-
-#### 6. Update `config.json`
-
-* Change the database name
-* Other settings are likely okay, but check username, password, and dialect
-
-#### 7. Check the models and migrations for relevance to your project's needs
-
-For example, if your project requires a birthdate field, then don't add that in there. 
-
-> When changing your models, update both the model and the migration.
-
-#### 8. Run the migrations
-
-```
-sequelize db:migrate
+const updateRemValues = () => {
+    remMale = male;
+    remEither = either;
+    remFemale = female;
+    remCountryValue = selectCountry.value;
+}
 ```
 
-#### 9. Add a `.env` file with the following fields:
-
-* SESSION_SECRET: Can be any random string; usually a hash in production
-* PORT: Usually 3000 or 8000
-
-#### 10. Run server; make sure it works
-
-```
-nodemon
-```
-
-or
+### Smart coding
+##### API fetches at least 100 results at a time.
+I do not want to run the API everytime the user presses 'Next'. 
+That would take too long, and it would risk more API errors.
+Instead, I wanted to grab at least a hundred results at a time,
+so that I can strike a balance between user effciency and risk
+of overwhelming the API.
 
 ```
-node index.js
+let numResults = 100
+fetch(`https://randomuser.me/api/?results=${numResults}`)
 ```
+### Cool features
+##### Progress bar:  
+No application is complete without some kind of progress bar!
+This baby simply uses two numbers, the current index, and the array length,
+and divides them and stuff in order to get a percentage that I can feed into
+the CSS width percentage of my progress bar.
+```
+//update progress bar
+function updateFirst() {
+    //calculate percentage fraciton
+    const num1 = currentIndex + 1;
+    const num2 = peopleGbl.length;
+    const fraction = num1/num2
+    let percent = Math.floor(fraction * 100)
+    if (percent === 99) {
+        percent = 100;
+    }
+    first.style.width = `${percent}%`
+}
+```
+
+### Layouts vs Results 
+##### Age Input?
+I did not end up using age input because the API
+produced ages that didn't make sense.  For example,
+it would show an image of a young man, and claim that 
+he was 80 years old!  Instead, I decided to use my time to
+ make a select-country input instead.  After all, people 
+only want to contact others who speak the same language!  
+##### Saving User Profiles?
+I suppose I could have explored localStorage, so that users could
+maybe store favorited profile information on their computer, but I 
+used my allotted time to make a progress bar, and a select-country
+input instead.  When I learn about online databases and servers,
+that's when I'll look more into saving data!
+
+
+### Final Thoughts
+I'm satisfied with what I was able to acccomplish in one week.
+The look is good and the funcitonality is mostly good.
+However, there are still bugs that need exploring, CORS errors
+that need better handling, more inputs and features that need to be 
+added, such as an age-range input, a loading animation, a media query 
+to adjust the page on smaller screen widths, etc.  I plan to keep updating 
+this project in the future!
+
+
