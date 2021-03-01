@@ -3,7 +3,7 @@
 <div class="container">
 
 
-    <div class="text-center cont-head-create">
+    <div class="text-center cont-head-create marT">
             <div class="inline-flex">
                 <h2 class="snippetsH2">SNIPPETS</h2>
                 <!--create button-->
@@ -92,7 +92,7 @@
         <% }) %>
 
         <% if (!atLeastOneSnippet) { %>
-            <p class="text-center">You have no snippets! &nbsp;Click 'create' to make one.</p>
+            <p class="text-center">You have no snippets! &nbsp;Hmm.. <br> There's a 'create' button somewhere...</p>
         <% } %>
 
     </div>  <!--end of: grid container-->
@@ -446,12 +446,10 @@
                 }
             }
 
-
-
             //if there are no results, display no results message
             if (numResults === 0) {
                 const noResultsEl = document.createElement('p')
-                noResultsEl.innerHTML = '<div class="text-center"><span class="redBg noResults">No results. Press \'escape\' and try again.</div>'
+                noResultsEl.innerHTML = '<div class="text-center"><span class="redBg noResults">:\'( No results. Press \'escape\' and try again!</div>'
                 wrapper.appendChild(noResultsEl)
             }
     } //end of: submitSearch function
