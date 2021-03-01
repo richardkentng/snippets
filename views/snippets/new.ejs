@@ -1,22 +1,108 @@
-<div class="container fluid new-create">
+<div class="container fluid form">
 
-<form method="POST" action="/snippets">
+  <form class="mar" method="POST" action="/snippets">
 
-  <h2 class="heading">CREATE SNIPPET</h2>
+    <div><h2 class="text-center heading">CREATE SNIPPET</h2></div>
 
-    <!--Enter a new value-->
-    <div class="form-group">
-      <label for="value">Value:</label>
-      <textarea name="newValue" id="value" type="text" class="form-control"" autofocus></textarea>
-    </div>
+      <!--Enter a new value-->
+      <div class="form-group">
+        <label for="value">Value:</label>
+        <textarea name="newValue" id="value" type="text" class="form-control" autofocus></textarea>
+      </div>
 
-    <!--Enter new tag(s)-->
-    <div class="form-group">
-      <label for="tag">Tag(s):</label>
-      <textarea name="newTag" id="tag" type="text" class="form-control";"></textarea>
-    </div>
+      <!--Enter new tag(s)-->
+      <div class="form-group">
+        <label for="tag">Tag(s):</label>
+        <textarea name="newTag" id="tag" type="text" class="form-control"></textarea>
+      </div>
 
-    <!--Cancel & Create buttons-->
-    <a href="/snippets" class="btn submitto">Cancel</a>
-    <input value="Create it!" type="submit" class="btn btn-success submitto marL">
-</form>
+      <!--Cancel & Create buttons-->
+      <div class="text-center">
+        <div class="inline-flex"> 
+          <a href="/snippets" class="btn  btn-cancel submitto">Cancel</a>
+          <button type="submit" class="btn btn-success submitto marL">Create&nbsp;It!</button>
+        </div>
+      </div>
+      
+  </form>
+</div>
+
+
+
+<div class="container fluid form trans">
+
+  <form class="mar" method="POST" action="/snippets">
+
+    <div><h2 class="text-center heading">EXAMPLE</h2></div>
+
+      <!--Enter a new value-->
+      <div class="form-group">
+        <label for="value">Value:</label>
+        <textarea readonly name="newValue" id="value" type="text" class="form-control exValue" autofocus></textarea>
+      </div>
+
+      <!--Enter new tag(s)-->
+      <div class="form-group">
+        <label for="tag">Tag(s):</label>
+        <textarea readonly name="newTag" id="tag" type="text" class="form-control exTag"></textarea>
+      </div>
+
+      <!--Cancel & Create buttons-->
+      <div class="text-center">
+        <div class="inline-flex"> 
+          <button disabled class="btn submitto">Cancel</button>
+          <button disabled type="submit" class="btn btn-success submitto marL">Create&nbsp;It!</button>
+        </div>
+      </div>
+      
+  </form>
+</div>
+
+<div class="spacer"></div>
+
+
+<script>
+  //populate examples
+
+  const examples = [
+        {
+            value: '11/23/2012',
+            tag: 'anniversary day we first met'
+        },
+        {
+            value: 'https://secure.img1-fg.wfcdn.com/im/36985934/resize-h600%5Ecompr-r85/3881/38816931/Theroux+Plastic+Treasure+Map.jpg',
+            tag: 'pic secret treasure location'
+        },
+        {
+            value: '&#9658;',
+            tag: 'html triangle symbol'
+        },
+        {
+            value: 'app.use(express.urlencoded({extended: false}))',
+            tag: 'express add form data'
+        },
+        {
+          value: 'app.use(express.static(__dirname + \'/public/\'))',
+          tag: 'express static public'
+        },
+        {
+          value: 'https://compote.slate.com/images/697b023b-64a5-49a0-8059-27b963453fb1.gif',
+          tag: 'gif homer simpson'
+        },
+        {
+            value: '&#x25cf;',
+            tag: 'html bullet point symbol'
+        },
+        {
+          value: 'https://simplywholefoodsdotcom.files.wordpress.com/2015/01/hummuspictorial2.jpg',
+          tag: 'pic hummus ingredients recipe'
+        }
+    ]
+
+
+  const random = Math.floor(Math.random() * examples.length)
+
+  document.querySelector('.exValue').textContent = examples[random].value
+  document.querySelector('.exTag').textContent = examples[random].tag
+
+</script>
