@@ -4,7 +4,7 @@
     <form action="/auth/signup" method="POST">
       <div class="cont-register">
   
-        <div class="head-index"><h1>Sign up!</h1></div>
+        <div class="marB text-center"><h1 class="heading">Sign up!</h1></div>
 
  
           <div class="form-group">
@@ -13,8 +13,8 @@
           </div>
         
           <div class="form-group">
-            <label for="new-name">Name</label>
-            <input id="new-name" type="text" class="form-control" name="name">
+            <label hidden for="new-name">Name</label>
+            <input hidden id="new-name" type="text" class="form-control" name="name" value="genericName">
           </div>
         
           <div class="form-group">
@@ -22,7 +22,7 @@
             <input id="new-password" type="password" class="form-control" name="password" min="8">
           </div>
     
-          <div ><input class = "submitto btn btn-primary " type="submit" value="Sign up"></div>
+          <div><input class = "submitto btn btn-primary " type="submit" value="Sign up"></div>
         
       </div>
     </form>
