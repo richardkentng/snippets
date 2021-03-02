@@ -148,6 +148,7 @@ occurrences.
 ![tab autocomplete](/public/image/hAutoTab.png)
 ![shift cycling](/public/image/hAutoShift.png)
 ![invalid partial](/public/image/hAutoNoTagsStart.png)
+
 *Press Tab to Autocomplete.  Press Shift to cycle through available tags.*
 This website is about making accessing information as easy and quick as possible,
 so we experimented with giving it autocomplete functionality and invalid input feedback!
