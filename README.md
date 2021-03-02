@@ -72,12 +72,14 @@ you'll never be more than a few seconds away from it!
 ![First-time Users Greeting](/public/image/hSearchNoSnippets.png)
 ### Create Snippet Page:
 ![create snippet page](/public/image/hCreateSnippet.png)
+
 ^ The 'value' field is where you would type the thing that is hard to remember 
 (e.g. line of code, a complex keyboard shortcut, etc.).  The 'tag' is where you would 
 enter some words separated by spaces.  You will be able to search for these words in the
 search bar!  (But be careful not to exceed 255 characters for either!  More on that later.)
 ### The Created Snippet:
 ![created one snippet](/public/image/hSearchOneSnippet.png)
+
 ^ This is what we call a 'snippet'!  Once you create a lot of them, the search bar will become your best friend!
 ### Edit Snippet Page:
 ![edit snippet page](/public/image/hEditSnippet.png)
@@ -134,6 +136,7 @@ update the data type to 'text' to avoid this limitation.
 
 ### Create/Edit Page Needs Data Validation
 ![Poor Data validation](/public/image/hPoorDataValidation.png)
+
 Why would anyone create a snippet without any information?  Or why would someone
 create a snippet without tag(s), or a snippet without a value?  Our next update
 will be to include input validation for the create and edit page to prevent such 
