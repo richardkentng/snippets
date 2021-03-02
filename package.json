@@ -1,5 +1,5 @@
 {
-  "name": "express-authentication",
+  "name": "snippets",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -27,19 +27,4 @@
     "pg": "^8.4.1",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0"
-  },
-  "description": "Project 2 Snippets Ready for Deployment and Submission",
-  "directories": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/richardkentng/snippets.git"
-  },
-  "keywords": [],
-  "author": "",
-  "bugs": {
-    "url": "https://github.com/richardkentng/snippets/issues"
-  },
-  "homepage": "https://github.com/richardkentng/snippets#readme"
 }
