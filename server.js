@@ -1,3 +1,5 @@
+//a change made by richard that i will save but not commit
+
 require('dotenv').config();
 const express = require('express');
 const layouts = require('express-ejs-layouts');
@@ -5,6 +7,8 @@ const session = require('express-session');
 const flash = require("connect-flash")
 const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn')
+const methodOverride = require('method-override');
+
 
 const app = express();
 
@@ -27,6 +31,9 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
+
+app.use(methodOverride("_method"))
+
 // FLASH
 app.use(flash())
 // adds a method to the req object for universal access
@@ -41,17 +48,15 @@ app.use((req, res, next) => {
   next()
 })
 
-
-app.get('/', (req, res) => {
-  res.render('index');
-});
-
-app.get('/profile', isLoggedIn, (req, res) => {
-  res.render('profile');
-});
-
 app.use('/auth', require('./routes/auth'));
+app.use('/snippets', require('./routes/snippets'));
 
-var server = app.listen(process.env.PORT || 3000, ()=> console.log(`🎧You're listening to the smooth sounds of port ${process.env.PORT || 3000}🎧`));
+//login page:
+app.get('/', (req, res) => {
+  res.render('auth/login');
+});
+
+
+var server = app.listen(process.env.PORT || 4000, ()=> console.log(`🎧You're listening to the smooth sounds of port ${process.env.PORT || 4000}🎧`));
 
 module.exports = server;
